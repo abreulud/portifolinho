@@ -1,0 +1,18 @@
+# dependências
+node_modules
+
+# build
+dist
+dist-ssr
+*.local
+
+# arquivos de build info do TS
+*.tsbuildinfo
+
+# editores
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# sistema
+.DS_Store
