@@ -28,25 +28,25 @@ onMounted(() => {
 
 <style scoped>
 .scramble-name {
+  display: inline;
   font-family: var(--font-mono);
   font-size: 56px;
   font-weight: 400;
-  display: inline-flex;
-  align-items: flex-end;
-  gap: 2px;
-  margin-bottom: 14px;
   cursor: default;
-  min-width: 12ch;
 }
 
 .cursor {
-  width: 44px;
+  display: inline-block;
+  white-space: nowrap;   
+  width: 27px;
   height: 4px;
   background: var(--signal);
-  margin-bottom: 10px;
+  margin-left: 2px;
+  vertical-align: baseline;
   border-radius: 2px;
   animation: blink 1.1s step-end infinite;
 }
+
 
 @keyframes blink {
   0%,

@@ -226,7 +226,7 @@ export const messages: Record<Locale, SiteMessages> = {
         { value: '2+', label: 'years of experience' }
       ],
       socialLinks: [
-        { label: 'download résumé', href: '/cv-ludmilla.pdf', glyph: '↓', primary: true },
+        { label: 'download resume', href: '/cv-ludmilla.pdf', glyph: '↓', primary: true },
         { label: 'linkedin', href: 'https://linkedin.com/in/ludmilla-abreu', glyph: '↗' },
         { label: 'github', href: 'https://github.com/abreulud', glyph: '⌘' }
       ],

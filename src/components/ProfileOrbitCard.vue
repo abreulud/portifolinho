@@ -3,11 +3,10 @@ import { useLocale } from '@/composables/useLocale'
 
 const { copy } = useLocale()
 </script>
-
-<template>
-  <div class="profile-orbit">
+  <template>
+   <div class="profile-orbit">
+    <!--
     <span class="profile-orbit-label">{{ copy.profile.cardLabel }}</span>
-
     <ul class="badge-row" :aria-label="copy.accessibility.activityIndicators">
       <li v-for="badge in copy.profile.badges" :key="badge.label" class="badge">
         <span v-if="badge.live" class="badge-live-dot" aria-hidden="true" />
@@ -15,6 +14,7 @@ const { copy } = useLocale()
         {{ badge.label }}
       </li>
     </ul>
+    -->
 
     <div class="rings">
       <div class="ring ring--outer">
@@ -34,7 +34,7 @@ const { copy } = useLocale()
 </template>
 
 <style scoped>
-.profile-orbit {
+/*.profile-orbit {
   background: var(--surface);
   border: 0.5px solid var(--border);
   border-radius: 22px;
@@ -85,13 +85,14 @@ const { copy } = useLocale()
   background: var(--signal);
   flex-shrink: 0;
 }
+*/
 
 .rings {
   display: flex;
   align-items: center;
   justify-content: center;
   height: calc(100% - 56px);
-  margin-top: 56px;
+  margin-top: 5px;
 }
 
 .ring {
@@ -103,14 +104,14 @@ const { copy } = useLocale()
 }
 
 .ring--outer {
-  width: 280px;
-  height: 280px;
+  width: 340px;
+  height: 340px;
 }
 
 
 .ring--core {
-  width: 250px;
-  height: 250px;
+  width: 310px;
+  height: 310px;
   background: var(--signal-soft);
   border: none;
   overflow: hidden;
