@@ -26,8 +26,25 @@ body {
   background: var(--canvas);
   color: var(--ink);
   font-family: var(--font-sans);
+  transition: background-color 0.3s ease, color 0.2s ease; 
 }
 
 a {
   color: inherit;
+}
+
+/* tema noturno */
+:root[data-theme='dark'] {
+  --canvas: #12140f;
+  --surface: #181b15;
+  --ink: #f2f3ee;
+  --signal: #3fbe85;
+  --signal-text: #4fcb92;
+  --signal-soft: #1f3a2c;
+  --text-secondary: #b9bbb3;
+  --text-muted: #8b8d85;
+  --border: #2a2d24;
+  --border-strong: #3a3d33;
+
+  color-scheme: dark;
 }

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { useLocale } from '@/composables/useLocale'
+import { useTheme } from '@/composables/useTheme'
 import {
   availableLocales,
   localeNames,
@@ -11,11 +11,7 @@ import {
 
 const route = useRoute()
 const { locale, copy, setLocale } = useLocale()
-const isDarkMode = ref(false)
-
-function toggleTheme() {
-  isDarkMode.value = !isDarkMode.value
-}
+const { theme, toggleTheme } = useTheme()
 </script>
 
 <template>
@@ -57,13 +53,13 @@ function toggleTheme() {
         type="button"
         class="theme-btn"
         :aria-label="
-          isDarkMode
+          theme === 'dark'
             ? copy.accessibility.switchToLightTheme
             : copy.accessibility.switchToDarkTheme
         "
         @click="toggleTheme"
       >
-        {{ isDarkMode ? '𖤓' : '⏾' }}
+        {{ theme === 'dark' ? '𖤓' : '⏾' }}
       </button>
     </nav>
   </div>
