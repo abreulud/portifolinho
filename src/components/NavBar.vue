@@ -63,7 +63,7 @@ function toggleTheme() {
         "
         @click="toggleTheme"
       >
-        {{ isDarkMode ? '☀' : '☾' }}
+        {{ isDarkMode ? '𖤓' : '⏾' }}
       </button>
     </nav>
   </div>
@@ -130,12 +130,33 @@ function toggleTheme() {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px;
+  padding: 4px 6px;
+   width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
 }
 
 .locale-option--active {
   color: var(--ink);
   font-weight: 700;
+  background-color: #093a240e;
+  border-radius: 50%;
+  box-sizing: border-box;
+  width: 32px;          
+  height: 32px;         
+  padding: 0;
+}
+
+.locale-option:hover {
+  background-color: #093a2405;
+  color: var(--ink);
+  border-radius: 50%;
+  box-sizing: border-box;
+  width: 32px;          
+  height: 32px;         
+  padding: 0;
 }
 
 .theme-btn {

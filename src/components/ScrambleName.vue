@@ -43,7 +43,7 @@ onMounted(() => {
   background: var(--signal);
   margin-left: 2px;
   vertical-align: baseline;
-  border-radius: 2px;
+  border-radius: 1px;
   animation: blink 1.1s step-end infinite;
 }
 
