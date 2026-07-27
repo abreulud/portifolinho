@@ -9,7 +9,7 @@ defineProps<{
 
 <template>
   <div class="toolbox">
-    <p class="toolbox-title">{{ label }}<span class="toolbox-cursor" aria-hidden="true" /></p>
+    <p class="toolbox-title">{{ label }}</p>
 
     <div class="toolbox-grid">
       <div v-for="column in columns" :key="column.label" class="toolbox-column">
@@ -35,14 +35,6 @@ defineProps<{
   margin-bottom: 28px;
   display: flex;
   align-items: center;
-}
-
-.toolbox-cursor {
-  width: 18px;
-  height: 4px;
-  background: var(--signal);
-  margin-left: 4px;
-  border-radius: 2px;
 }
 
 .toolbox-grid {
