@@ -1,22 +1,18 @@
 import { computed, readonly, ref, watch } from 'vue'
 
-import {
-  localeCodes,
-  messages,
-  type Locale
-} from '@/i18n/messages'
+import { localeCodes, messages, type Locale } from '@/i18n/messages'
 
-const storageKey = 'portfolio-locale'
-const supportedLocales: Locale[] = ['pt', 'en', 'es']
+const STORAGE_KEY = 'portfolio-locale'
+const SUPPORTED_LOCALES: Locale[] = ['pt', 'en', 'es']
 
 function isLocale(value: string | null): value is Locale {
-  return supportedLocales.includes(value as Locale)
+  return SUPPORTED_LOCALES.includes(value as Locale)
 }
 
 function getInitialLocale(): Locale {
   if (typeof window === 'undefined') return 'pt'
 
-  const savedLocale = window.localStorage.getItem(storageKey)
+  const savedLocale = window.localStorage.getItem(STORAGE_KEY)
   if (isLocale(savedLocale)) return savedLocale
 
   const browserLocale = window.navigator.language.slice(0, 2)
@@ -25,7 +21,6 @@ function getInitialLocale(): Locale {
 
 const currentLocale = ref<Locale>(getInitialLocale())
 
-// Centralizar a troca aqui mantém o conteúdo, o atributo lang e a preferência em sincronia.
 watch(
   currentLocale,
   (locale) => {
@@ -34,7 +29,7 @@ watch(
     }
 
     if (typeof window !== 'undefined') {
-      window.localStorage.setItem(storageKey, locale)
+      window.localStorage.setItem(STORAGE_KEY, locale)
     }
   },
   { immediate: true }

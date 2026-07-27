@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260">
+  <rect width="400" height="260" fill="#12141a" />
+  <defs>
+    <pattern id="grid-recon" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M20 0H0V20" fill="none" stroke="#1e2130" stroke-width="1" />
+    </pattern>
+  </defs>
+  <rect width="400" height="260" fill="url(#grid-recon)" />
+
+  <circle cx="200" cy="80" r="30" fill="none" stroke="#3FBE85" stroke-width="1.5" opacity="0.5" />
+  <path d="M182 62L218 98M218 62L182 98" stroke="#3FBE85" stroke-width="2.5" stroke-linecap="round" />
+
+  <rect x="60" y="160" width="80" height="52" rx="5" fill="#1a2e24" stroke="#3FBE85" stroke-width="1" />
+  <rect x="70" y="172" width="34" height="4" fill="#3FBE85" opacity="0.7" />
+  <rect x="70" y="184" width="52" height="4" fill="#3FBE85" opacity="0.4" />
+  <rect x="70" y="196" width="24" height="4" fill="#3FBE85" opacity="0.4" />
+
+  <rect x="270" y="135" width="80" height="66" rx="5" fill="#1a2e24" stroke="#3FBE85" stroke-width="1" />
+  <path d="M282 185L300 160L316 175L336 148" stroke="#3FBE85" stroke-width="1.5" fill="none" stroke-linecap="round" />
+
+  <line x1="200" y1="112" x2="200" y2="160" stroke="#2a3d33" stroke-width="1" stroke-dasharray="3 3" />
+  <line x1="140" y1="184" x2="270" y2="168" stroke="#2a3d33" stroke-width="1" stroke-dasharray="3 3" />
+</svg>

@@ -8,13 +8,12 @@ interface ScrambleOptions {
 }
 
 function randomScrambleChar(): string {
-  const i = Math.floor(Math.random() * SCRAMBLE_CHARS.length)
-  return SCRAMBLE_CHARS[i]
+  const randomIndex = Math.floor(Math.random() * SCRAMBLE_CHARS.length)
+  return SCRAMBLE_CHARS[randomIndex]
 }
 
 export function useTextScramble(originalText: string, options: ScrambleOptions = {}) {
   const { revealDelayFrames = 3, frameInterval = 35 } = options
-
   const displayText = ref(originalText)
   const isScrambling = ref(false)
 
@@ -26,19 +25,20 @@ export function useTextScramble(originalText: string, options: ScrambleOptions =
       clearInterval(intervalId)
       intervalId = null
     }
+
     isScrambling.value = false
   }
 
   function play() {
-    // Ignoro novos hovers enquanto a animação atual ainda está rodando.
     if (isScrambling.value) return
 
     isScrambling.value = true
     frame = 0
+
     const totalFrames = originalText.length * revealDelayFrames
 
     intervalId = setInterval(() => {
-      frame++
+      frame += 1
 
       const revealedChars = Math.floor(frame / revealDelayFrames)
 
@@ -47,6 +47,7 @@ export function useTextScramble(originalText: string, options: ScrambleOptions =
         .map((char, index) => {
           if (char === ' ') return ' '
           if (index < revealedChars) return originalText[index]
+
           return randomScrambleChar()
         })
         .join('')

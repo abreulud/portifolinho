@@ -8,32 +8,38 @@ const { copy } = useLocale()
 
 <template>
   <article class="project-card">
-    <p class="project-tag">{{ project.index }} / {{ project.tag.toUpperCase() }}</p>
-    <h4 class="project-title">{{ project.title }}</h4>
+    <div v-if="project.coverImage" class="project-cover">
+      <img :src="project.coverImage" alt="" loading="lazy" decoding="async" />
+    </div>
 
-    <p class="project-impact">
-      <strong>{{ copy.projects.problemLabel }}:</strong> {{ project.impact.problem }}<br />
-      <strong>{{ copy.projects.resultLabel }}:</strong> {{ project.impact.result }}
-    </p>
+    <div class="project-body">
+      <p class="project-tag">{{ project.index }} / {{ project.tag.toUpperCase() }}</p>
+      <h4 class="project-title">{{ project.title }}</h4>
 
-    <div class="project-actions">
-      <a :href="project.repoUrl" target="_blank" rel="noopener noreferrer" class="action-btn">
-        ⌘ {{ copy.projects.sourceCode }}
-      </a>
+      <p class="project-impact">
+        <strong>{{ copy.projects.problemLabel }}:</strong> {{ project.impact.problem }}<br />
+        <strong>{{ copy.projects.resultLabel }}:</strong> {{ project.impact.result }}
+      </p>
 
-      <a
-        v-if="project.demoUrl"
-        :href="project.demoUrl"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="action-btn action-btn--demo"
-      >
-        ▶ {{ copy.projects.viewDemo }}
-      </a>
+      <div class="project-actions">
+        <a :href="project.repoUrl" target="_blank" rel="noopener noreferrer" class="action-btn">
+          ⌘ {{ copy.projects.sourceCode }}
+        </a>
 
-      <span v-else class="action-btn action-btn--disabled" aria-disabled="true">
-        ▶ {{ copy.projects.comingSoon }}
-      </span>
+        <a
+          v-if="project.demoUrl"
+          :href="project.demoUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="action-btn action-btn--demo"
+        >
+          ▶ {{ copy.projects.viewDemo }}
+        </a>
+
+        <span v-else class="action-btn action-btn--disabled" aria-disabled="true">
+          ▶ {{ copy.projects.comingSoon }}
+        </span>
+      </div>
     </div>
   </article>
 </template>
@@ -43,12 +49,28 @@ const { copy } = useLocale()
   background: var(--surface);
   border: 0.5px solid var(--border);
   border-radius: 22px;
-  padding: 26px;
+  overflow: hidden;
   transition: border-color 0.15s;
 }
 
 .project-card:hover {
   border-color: var(--border-strong);
+}
+
+.project-cover {
+  aspect-ratio: 16 / 9;
+  background: var(--canvas);
+}
+
+.project-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.project-body {
+  padding: 26px;
 }
 
 .project-tag {

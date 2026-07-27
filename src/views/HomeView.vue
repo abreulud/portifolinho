@@ -18,7 +18,24 @@ const otherPosts = computed(() => copy.value.posts.items.slice(1))
   <HeroSection />
   <ScrollHint />
 
-  <section class="posts-section">
+  <section id="projetos" class="projects-section">
+    <SectionHeader
+      :eyebrow="copy.projects.eyebrow"
+      :title="copy.projects.sectionTitle"
+      :see-all-label="copy.accessibility.seeAll"
+      see-all-to="/projetos"
+    />
+
+    <div class="projects-grid">
+      <ProjectCard
+        v-for="project in copy.projects.items"
+        :key="project.slug"
+        :project="project"
+      />
+    </div>
+  </section>
+
+  <section id="blog" class="posts-section">
     <SectionHeader
       :eyebrow="copy.posts.eyebrow"
       :title="copy.posts.sectionTitle"
@@ -39,26 +56,13 @@ const otherPosts = computed(() => copy.value.posts.items.slice(1))
       </div>
     </div>
   </section>
-
-  <section class="projects-section">
-    <SectionHeader
-      :eyebrow="copy.projects.eyebrow"
-      :title="copy.projects.sectionTitle"
-      :see-all-label="copy.accessibility.seeAll"
-      see-all-to="/projetos"
-    />
-
-    <div class="projects-grid">
-      <ProjectCard
-        v-for="project in copy.projects.items"
-        :key="project.slug"
-        :project="project"
-      />
-    </div>
-  </section>
 </template>
 
 <style scoped>
+.posts-section {
+  margin-top: 64px;
+}
+
 .posts-grid {
   display: grid;
   grid-template-columns: 1.3fr 1fr;
@@ -69,10 +73,6 @@ const otherPosts = computed(() => copy.value.posts.items.slice(1))
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-.projects-section {
-  margin-top: 64px;
 }
 
 .projects-grid {

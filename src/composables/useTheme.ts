@@ -2,19 +2,17 @@ import { readonly, ref, watch } from 'vue'
 
 export type Theme = 'light' | 'dark'
 
-const storageKey = 'portfolio-theme'
+const STORAGE_KEY = 'portfolio-theme'
 
 function getInitialTheme(): Theme {
   if (typeof window === 'undefined') return 'light'
 
-  const saved = window.localStorage.getItem(storageKey)
-  return saved === 'dark' ? 'dark' : 'light'
+  const savedTheme = window.localStorage.getItem(STORAGE_KEY)
+  return savedTheme === 'dark' ? 'dark' : 'light'
 }
 
 const currentTheme = ref<Theme>(getInitialTheme())
 
-// mesma ideia do useLocale: um watch só aplicando no <html> e salvando,
-// em vez de cada componente cuidar disso por conta própria
 watch(
   currentTheme,
   (theme) => {
@@ -23,7 +21,7 @@ watch(
     }
 
     if (typeof window !== 'undefined') {
-      window.localStorage.setItem(storageKey, theme)
+      window.localStorage.setItem(STORAGE_KEY, theme)
     }
   },
   { immediate: true }

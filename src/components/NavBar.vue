@@ -115,65 +115,54 @@ const { theme, toggleTheme } = useTheme()
 
 .locale-switch {
   display: flex;
-  gap: 8px;
   align-items: center;
+  gap: 8px;
 }
 
 .locale-option {
+  width: 32px;
+  height: 32px;
+  padding: 4px 6px;
+  color: var(--text-muted);
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--text-muted);
+  cursor: pointer;
   background: none;
   border: none;
-  cursor: pointer;
-  padding: 4px 6px;
-   width: 32px;
-  height: 32px;
   border-radius: 50%;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
 
+.locale-option--active,
+.locale-option:hover {
+  padding: 0;
+  color: var(--ink);
+  background-color: var(--signal-soft);
 }
 
 .locale-option--active {
-  color: var(--ink);
   font-weight: 700;
-  background-color: #093a240e;
-  border-radius: 50%;
-  box-sizing: border-box;
-  width: 32px;          
-  height: 32px;         
-  padding: 0;
-}
-
-.locale-option:hover {
-  background-color: #093a2405;
-  color: var(--ink);
-  border-radius: 50%;
-  box-sizing: border-box;
-  width: 32px;          
-  height: 32px;         
-  padding: 0;
 }
 
 .theme-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 0.5px solid var(--border-strong);
-  background: var(--surface);
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 32px;
+  height: 32px;
   color: var(--text-muted);
   font-size: 14px;
   cursor: pointer;
+  background: var(--surface);
+  border: 0.5px solid var(--border-strong);
+  border-radius: 50%;
 }
 
 @media (max-width: 720px) {
   .nav {
     gap: 12px;
-    border-radius: 24px;
     padding: 10px 16px;
+    border-radius: 24px;
   }
 
   .divider {

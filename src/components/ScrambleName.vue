@@ -7,16 +7,16 @@ interface Props {
   text: string
 }
 
-const props = defineProps<Props>()
+const INITIAL_ANIMATION_DELAY = 150
 
+const props = defineProps<Props>()
 const { displayText, play } = useTextScramble(props.text, {
   revealDelayFrames: 4,
   frameInterval: 30
 })
 
-// O atraso curto evita que a animação comece antes da fonte terminar de carregar.
 onMounted(() => {
-  setTimeout(play, 150)
+  setTimeout(play, INITIAL_ANIMATION_DELAY)
 })
 </script>
 
@@ -37,26 +37,27 @@ onMounted(() => {
 
 .cursor {
   display: inline-block;
-  white-space: nowrap;   
   width: 27px;
   height: 4px;
-  background: var(--signal);
   margin-left: 2px;
   vertical-align: baseline;
+  background: var(--signal);
   border-radius: 1px;
+  white-space: nowrap;
   animation: blink 1.1s step-end infinite;
 }
-
 
 @keyframes blink {
   0%,
   45% {
     opacity: 1;
   }
+
   50%,
   95% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }

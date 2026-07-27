@@ -28,6 +28,20 @@ export interface Post {
   featured?: boolean
 }
 
+export interface ExperienceEntry {
+  slug: string
+  period: string
+  company: string
+  role: string
+  description: string
+  skills: string[]
+}
+
+export interface ToolboxColumn {
+  label: string
+  items: string[]
+}
+
 export type ProjectStatus = 'live' | 'in-progress'
 
 export interface ProjectImpact {
@@ -44,4 +58,5 @@ export interface Project {
   repoUrl: string
   demoUrl?: string
   status: ProjectStatus
+  coverImage?: string
 }

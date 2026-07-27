@@ -1,9 +1,11 @@
 import type {
   CredibilityBadge,
+  ExperienceEntry,
   Post,
   ProfileStat,
   Project,
-  SocialLink
+  SocialLink,
+  ToolboxColumn
 } from '@/types/content'
 
 export type Locale = 'pt' | 'en' | 'es'
@@ -38,6 +40,16 @@ export interface SiteMessages {
     featuredLabel: string
     readArticle: string
     items: Post[]
+  }
+  experience: {
+    eyebrow: string
+    pageTitle: string
+    intro: string
+    positionsLabel: string
+    ongoingLabel: string
+    toolboxLabel: string
+    entries: ExperienceEntry[]
+    toolbox: ToolboxColumn[]
   }
   projects: {
     eyebrow: string
@@ -153,6 +165,49 @@ export const messages: Record<Locale, SiteMessages> = {
         }
       ]
     },
+    experience: {
+      eyebrow: '~/experiência',
+      pageTitle: 'Experiência',
+      intro:
+        'Experiências em tecnologia, pesquisa e segurança organizadas como um log: o que fiz, o que aprendi e o impacto gerado.',
+      positionsLabel: 'posições',
+      ongoingLabel: 'em constante aprendizado',
+      toolboxLabel: 'toolbox',
+      entries: [
+        {
+          slug: 'security-researcher',
+          period: '2026 — agora',
+          company: 'Independente',
+          role: 'Security Researcher',
+          description:
+            'Estudo de vulnerabilidades, laboratórios ofensivos e produção de write-ups focados em processo e clareza técnica.',
+          skills: ['web security', 'linux', 'ctf']
+        },
+        {
+          slug: 'desenvolvedora',
+          period: '2025 — 2026',
+          company: 'Projetos pessoais',
+          role: 'Desenvolvedora',
+          description:
+            'Construção de ferramentas para reconhecimento, organização de evidências e automação de tarefas repetitivas.',
+          skills: ['python', 'typescript', 'apis']
+        },
+        {
+          slug: 'estudos-offsec',
+          period: '2024 — 2025',
+          company: 'Estudos autônomos',
+          role: 'Segurança ofensiva',
+          description:
+            'Fundamentos de redes, sistemas operacionais, privacidade, exploração web e metodologia de pentest.',
+          skills: ['networking', 'owasp', 'privacy']
+        }
+      ],
+      toolbox: [
+        { label: '01 / offensive', items: ['Burp Suite', 'Nmap · ffuf', 'Metasploit'] },
+        { label: '02 / code', items: ['Python', 'JavaScript', 'Shell · Git'] },
+        { label: '03 / systems', items: ['Linux', 'Networks', 'Docker'] }
+      ]
+    },
     projects: {
       eyebrow: '~/projetos',
       sectionTitle: 'Meus projetos',
@@ -173,7 +228,8 @@ export const messages: Record<Locale, SiteMessages> = {
           },
           repoUrl: 'https://github.com/ludmilla/recon-map',
           demoUrl: 'https://recon-map.ludmilla.dev',
-          status: 'live'
+          status: 'live',
+          coverImage: '/covers/recon-map.svg'
         },
         {
           slug: 'privacy-checklist',
@@ -186,7 +242,8 @@ export const messages: Record<Locale, SiteMessages> = {
           },
           repoUrl: 'https://github.com/ludmilla/privacy-checklist',
           demoUrl: 'https://privacy-checklist.ludmilla.dev',
-          status: 'live'
+          status: 'live',
+          coverImage: '/covers/privacy-checklist.svg'
         }
       ]
     },
@@ -269,6 +326,49 @@ export const messages: Record<Locale, SiteMessages> = {
         }
       ]
     },
+    experience: {
+      eyebrow: '~/experience',
+      pageTitle: 'Experience',
+      intro:
+        'Experience in technology, research and security organized as a log: what I did, what I learned and the impact it had.',
+      positionsLabel: 'positions',
+      ongoingLabel: 'always learning',
+      toolboxLabel: 'toolbox',
+      entries: [
+        {
+          slug: 'security-researcher',
+          period: '2026 — now',
+          company: 'Independent',
+          role: 'Security Researcher',
+          description:
+            'Studying vulnerabilities, running offensive labs and writing write-ups focused on process and technical clarity.',
+          skills: ['web security', 'linux', 'ctf']
+        },
+        {
+          slug: 'desenvolvedora',
+          period: '2025 — 2026',
+          company: 'Personal projects',
+          role: 'Developer',
+          description:
+            'Building tools for reconnaissance, organizing evidence and automating repetitive tasks.',
+          skills: ['python', 'typescript', 'apis']
+        },
+        {
+          slug: 'estudos-offsec',
+          period: '2024 — 2025',
+          company: 'Self-directed study',
+          role: 'Offensive security',
+          description:
+            'Fundamentals of networking, operating systems, privacy, web exploitation and pentest methodology.',
+          skills: ['networking', 'owasp', 'privacy']
+        }
+      ],
+      toolbox: [
+        { label: '01 / offensive', items: ['Burp Suite', 'Nmap · ffuf', 'Metasploit'] },
+        { label: '02 / code', items: ['Python', 'JavaScript', 'Shell · Git'] },
+        { label: '03 / systems', items: ['Linux', 'Networks', 'Docker'] }
+      ]
+    },
     projects: {
       eyebrow: '~/projects',
       sectionTitle: 'My projects',
@@ -289,7 +389,8 @@ export const messages: Record<Locale, SiteMessages> = {
           },
           repoUrl: 'https://github.com/ludmilla/recon-map',
           demoUrl: 'https://recon-map.ludmilla.dev',
-          status: 'live'
+          status: 'live',
+          coverImage: '/covers/recon-map.svg'
         },
         {
           slug: 'privacy-checklist',
@@ -302,7 +403,8 @@ export const messages: Record<Locale, SiteMessages> = {
           },
           repoUrl: 'https://github.com/ludmilla/privacy-checklist',
           demoUrl: 'https://privacy-checklist.ludmilla.dev',
-          status: 'live'
+          status: 'live',
+          coverImage: '/covers/privacy-checklist.svg'
         }
       ]
     },
@@ -385,6 +487,49 @@ export const messages: Record<Locale, SiteMessages> = {
         }
       ]
     },
+    experience: {
+      eyebrow: '~/experiencia',
+      pageTitle: 'Experiencia',
+      intro:
+        'Experiencias en tecnología, investigación y seguridad organizadas como un log: qué hice, qué aprendí y el impacto que tuvo.',
+      positionsLabel: 'posiciones',
+      ongoingLabel: 'en aprendizaje constante',
+      toolboxLabel: 'toolbox',
+      entries: [
+        {
+          slug: 'security-researcher',
+          period: '2026 — ahora',
+          company: 'Independiente',
+          role: 'Security Researcher',
+          description:
+            'Estudio de vulnerabilidades, laboratorios ofensivos y producción de write-ups enfocados en proceso y claridad técnica.',
+          skills: ['web security', 'linux', 'ctf']
+        },
+        {
+          slug: 'desenvolvedora',
+          period: '2025 — 2026',
+          company: 'Proyectos personales',
+          role: 'Desarrolladora',
+          description:
+            'Construcción de herramientas para reconocimiento, organización de evidencias y automatización de tareas repetitivas.',
+          skills: ['python', 'typescript', 'apis']
+        },
+        {
+          slug: 'estudos-offsec',
+          period: '2024 — 2025',
+          company: 'Estudios autónomos',
+          role: 'Seguridad ofensiva',
+          description:
+            'Fundamentos de redes, sistemas operativos, privacidad, explotación web y metodología de pentest.',
+          skills: ['networking', 'owasp', 'privacy']
+        }
+      ],
+      toolbox: [
+        { label: '01 / offensive', items: ['Burp Suite', 'Nmap · ffuf', 'Metasploit'] },
+        { label: '02 / code', items: ['Python', 'JavaScript', 'Shell · Git'] },
+        { label: '03 / systems', items: ['Linux', 'Networks', 'Docker'] }
+      ]
+    },
     projects: {
       eyebrow: '~/proyectos',
       sectionTitle: 'Mis proyectos',
@@ -405,7 +550,8 @@ export const messages: Record<Locale, SiteMessages> = {
           },
           repoUrl: 'https://github.com/ludmilla/recon-map',
           demoUrl: 'https://recon-map.ludmilla.dev',
-          status: 'live'
+          status: 'live',
+          coverImage: '/covers/recon-map.svg'
         },
         {
           slug: 'privacy-checklist',
@@ -418,7 +564,8 @@ export const messages: Record<Locale, SiteMessages> = {
           },
           repoUrl: 'https://github.com/ludmilla/privacy-checklist',
           demoUrl: 'https://privacy-checklist.ludmilla.dev',
-          status: 'live'
+          status: 'live',
+          coverImage: '/covers/privacy-checklist.svg'
         }
       ]
     },
