@@ -339,30 +339,30 @@ export const messages: Record<Locale, SiteMessages> = {
       entries: [
         {
           slug: 'security-researcher',
-          period: '2026 — now',
-          company: 'Independent',
-          role: 'Security Researcher',
+          period: 'Dec 2025 — present',
+          company: 'QuIIN',
+          role: 'IT Researcher in Quantum Cryptography',
           description:
-            'Studying vulnerabilities, running offensive labs and writing write-ups focused on process and technical clarity.',
-          skills: ['web security', 'linux', 'ctf']
+            'Integrated Continuous-Variable Quantum Key Distribution (CV-QKD) systems with computer networks using TCP/IP, adapting TLS and PKI protocols for cryptographic key consumption by quantum hardware. Developed a proxy for testing REST APIs over HTTPS using post-quantum digital certificates. Prepared technical reports and scientific documentation related to the research project.',
+          skills: ['Go', 'Linux', 'TLS', 'PKI', 'REST API', 'Shell Script', 'VirtualBox']
         },
         {
-          slug: 'desenvolvedora',
-          period: '2025 — 2026',
-          company: 'Personal projects',
-          role: 'Developer',
+          slug: 'technology-and-data',
+          period: 'Dec 2024 — Dec 2025',
+          company: 'Sicoob',
+          role: 'Technology Intern',
           description:
-            'Building tools for reconnaissance, organizing evidence and automating repetitive tasks.',
-          skills: ['python', 'typescript', 'apis']
+            'Provided technical support to internal users with hardware, software, access and system issues. Participated in data migration, process automation and technical documentation projects.',
+          skills: ['SQL Server', 'ASP.NET', 'JavaScript', 'AnyDesk', 'EDR CrowdStrike']
         },
         {
-          slug: 'estudos-offsec',
-          period: '2024 — 2025',
-          company: 'Self-directed study',
-          role: 'Offensive security',
+          slug: 'networks',
+          period: 'Apr 2024 — Dec 2024',
+          company: 'Saltur',
+          role: 'IT Intern',
           description:
-            'Fundamentals of networking, operating systems, privacy, web exploitation and pentest methodology.',
-          skills: ['networking', 'owasp', 'privacy']
+            'Provided hardware, software and network support, including switch maintenance and help desk requests. Also assisted with internal systems and the deployment of a government application during Carnival.',
+          skills: ['GLPI', 'C#', 'HTML/CSS', 'Networking', 'Active Directory']
         }
       ],
       toolbox: [
@@ -500,30 +500,30 @@ export const messages: Record<Locale, SiteMessages> = {
       entries: [
         {
           slug: 'security-researcher',
-          period: '2026 — ahora',
-          company: 'Independiente',
-          role: 'Security Researcher',
+          period: 'Dic 2025 — actualidad',
+          company: 'QuIIN',
+          role: 'Investigadora de TI en Criptografía Cuántica',
           description:
-            'Estudio de vulnerabilidades, laboratorios ofensivos y producción de write-ups enfocados en proceso y claridad técnica.',
-          skills: ['web security', 'linux', 'ctf']
+            'Integré sistemas de distribución cuántica de claves de variable continua (CV-QKD) con redes de computadoras mediante TCP/IP, adaptando protocolos TLS y PKI para el consumo de claves criptográficas por hardware cuántico. Desarrollé un proxy para probar APIs REST sobre HTTPS utilizando certificados digitales poscuánticos. Elaboré informes técnicos y documentación científica relacionados con el proyecto de investigación.',
+          skills: ['Go', 'Linux', 'TLS', 'PKI', 'REST API', 'Shell Script', 'VirtualBox']
         },
         {
-          slug: 'desenvolvedora',
-          period: '2025 — 2026',
-          company: 'Proyectos personales',
-          role: 'Desarrolladora',
+          slug: 'technology-and-data',
+          period: 'Dic 2024 — Dic 2025',
+          company: 'Sicoob',
+          role: 'Pasante de Tecnología',
           description:
-            'Construcción de herramientas para reconocimiento, organización de evidencias y automatización de tareas repetitivas.',
-          skills: ['python', 'typescript', 'apis']
+            'Brindé soporte técnico a usuarios internos en cuestiones de hardware, software, accesos y sistemas. Participé en proyectos de migración de datos, automatización de procesos y documentación técnica.',
+          skills: ['SQL Server', 'ASP.NET', 'JavaScript', 'AnyDesk', 'EDR CrowdStrike']
         },
         {
-          slug: 'estudos-offsec',
-          period: '2024 — 2025',
-          company: 'Estudios autónomos',
-          role: 'Seguridad ofensiva',
+          slug: 'networks',
+          period: 'Abr 2024 — Dic 2024',
+          company: 'Saltur',
+          role: 'Pasante de TI',
           description:
-            'Fundamentos de redes, sistemas operativos, privacidad, explotación web y metodología de pentest.',
-          skills: ['networking', 'owasp', 'privacy']
+            'Trabajé con soporte de hardware, software y redes, incluyendo mantenimiento de switches y atención de solicitudes. También colaboré con sistemas internos y con la implementación de una aplicación gubernamental durante el Carnaval.',
+          skills: ['GLPI', 'C#', 'HTML/CSS', 'Redes', 'Active Directory']
         }
       ],
       toolbox: [

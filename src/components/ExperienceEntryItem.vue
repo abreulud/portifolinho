@@ -8,8 +8,8 @@ const props = defineProps<{
 }>()
 
 const isOpen = ref(false)
-const buttonId = computed(() => `experience-trigger-${props.entry.slug}`)
-const panelId = computed(() => `experience-panel-${props.entry.slug}`)
+const buttonId = computed(() => 'experience-trigger-' + props.entry.slug)
+const panelId = computed(() => 'experience-panel-' + props.entry.slug)
 
 function toggle() {
   isOpen.value = !isOpen.value
@@ -136,22 +136,26 @@ function toggle() {
 
 .entry-body-inner {
   display: flex;
-  gap: 32px;
+  flex-direction: column;
+  gap: 16px;
   align-items: flex-start;
-  padding: 0 4px 24px 164px;
+  padding: 0 4px 28px 164px;
 }
 
 .entry-description {
+  max-width: 720px;
+  margin: 0;
   font-size: 14px;
   color: var(--text-secondary);
   line-height: 1.6;
-  flex: 1;
 }
 
 .entry-skills {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
 
@@ -175,9 +179,7 @@ function toggle() {
   }
 
   .entry-body-inner {
-    flex-direction: column;
     padding-left: 4px;
-    gap: 16px;
   }
 }
 
