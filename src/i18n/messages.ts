@@ -176,36 +176,38 @@ export const messages: Record<Locale, SiteMessages> = {
       entries: [
         {
           slug: 'security-researcher',
-          period: '2026 — agora',
-          company: 'Independente',
-          role: 'Security Researcher',
+          period: 'Dez 2025 — agora',
+          company: 'QuIIN',
+          role: 'Pesquisadora IT em Criptografia Quântica',
           description:
-            'Estudo de vulnerabilidades, laboratórios ofensivos e produção de write-ups focados em processo e clareza técnica.',
-          skills: ['web security', 'linux', 'ctf']
+            'Integrei sistemas de CV-QKD a redes de computadores utilizando TCP/IP, adaptando protocolos TLS e PKI para o consumo de chaves criptográficas por hardware quântico. Desenvolvi um proxy para testar APIs REST via HTTPS com certificados digitais pós-quânticos, assim como relatórios técnicos e documentação científica relacionados ao projeto de pesquisa.',
+          skills: ['Go', 'Linux', 'TLS', 'PKI', ' REST API', 'Shell Script', 'VirtualBox']
         },
         {
-          slug: 'desenvolvedora',
-          period: '2025 — 2026',
-          company: 'Projetos pessoais',
-          role: 'Desenvolvedora',
+          slug: 'tecnologia e dados',
+          period: 'Dez 2024 — Dez 2025',
+          company: 'Sicoob',
+          role: 'Estagiária de Tecnologia',
           description:
-            'Construção de ferramentas para reconhecimento, organização de evidências e automação de tarefas repetitivas.',
-          skills: ['python', 'typescript', 'apis']
+            'Prestei suporte técnico a usuários internos em demandas de hardware, software, acessos e sistemas. Participei de projetos de migração de dados, automação de processos e documentação técnica.',
+          skills: ['SQL Server', 'ASP.NET', 'JavaScript', 'AnyDesk', 'EDR CrowdStrike']
         },
         {
-          slug: 'estudos-offsec',
-          period: '2024 — 2025',
-          company: 'Estudos autônomos',
-          role: 'Segurança ofensiva',
+          slug: 'redes',
+          period: 'Abr 2024 — Dez 2024',
+          company: 'Saltur',
+          role: 'Estagiária de TI',
           description:
-            'Fundamentos de redes, sistemas operacionais, privacidade, exploração web e metodologia de pentest.',
-          skills: ['networking', 'owasp', 'privacy']
+            'Atuei com suporte a hardware, software e redes, incluindo manutenção de switches e atendimento de chamados. Também auxiliei em sistemas internos e na implantação de uma aplicação governamental durante o Carnaval.',
+          skills: ['GLPI', 'C#', 'HTML/CSS', 'Redes', 'Active Directory']
         }
       ],
       toolbox: [
-        { label: '01 / offensive', items: ['Burp Suite', 'Nmap · ffuf', 'Metasploit'] },
-        { label: '02 / code', items: ['Python', 'JavaScript', 'Shell · Git'] },
-        { label: '03 / systems', items: ['Linux', 'Networks', 'Docker'] }
+        { label: '~/Desenvolvimento', items: ['Python', 'Go', 'JavaScript', 'SQL', 'Rest API'] },
+        { label: '~/Redes e Segurança', items: ['TCP/IP · DNS', 'TLS/PKI', 'Wireshark', 'Nmap', 'BurpSuite', 'EDR/XDR'] },
+        { label: '~/Sistemas e Suporte', items: ['Linux', 'Windows', 'Docker', 'Grafana', 'Git/GitHub'] },
+       /* { label: '~/Dados', items: ['SQL Server', 'Power BI', 'Excel'] }*/
+
       ]
     },
     projects: {

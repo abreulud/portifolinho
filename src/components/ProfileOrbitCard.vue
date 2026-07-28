@@ -52,8 +52,8 @@ const { copy } = useLocale()
 }
 
 .ring--core {
-  width: 97%;
-  height: 97%;
+  width: 92.5%;
+  height: 92.5%;
   overflow: hidden;
 }
 
