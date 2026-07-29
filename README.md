@@ -15,5 +15,3 @@ npm run dev
 npm run build
 npm run preview   # pra conferir o build localmente antes de subir
 ```
-
-O build sai em `dist/` — é essa pasta que vai pro deploy (Vercel, Netlify, GitHub Pages, etc).
