@@ -32,6 +32,7 @@ export interface ExperienceEntry {
   slug: string
   period: string
   company: string
+  location?: string
   role: string
   description: string
   skills: string[]
@@ -55,7 +56,8 @@ export interface Project {
   tag: string
   title: string
   impact: ProjectImpact
-  repoUrl: string
+  publishedAt: string
+  repoUrl?: string
   demoUrl?: string
   status: ProjectStatus
   coverImage?: string

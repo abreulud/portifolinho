@@ -23,7 +23,9 @@ const { copy } = useLocale()
   padding-top: 24px;
   border-top: 0.5px solid var(--border);
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  gap: 14px 24px;
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--text-muted);
@@ -32,5 +34,11 @@ const { copy } = useLocale()
 .footer-link {
   color: var(--signal-text);
   text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .site-footer {
+    flex-direction: column;
+  }
 }
 </style>

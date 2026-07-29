@@ -23,6 +23,7 @@ const { theme, toggleTheme } = useTheme()
         :to="link.path"
         class="nav-link"
         :class="{ 'nav-link--active': route.path === link.path }"
+        :aria-current="route.path === link.path ? 'page' : undefined"
       >
         {{ copy.navigation[link.key] }}
       </router-link>

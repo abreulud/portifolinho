@@ -21,7 +21,6 @@ export interface SiteMessages {
     techStack: string
     activityIndicators: string
     profilePhoto: string
-    seeAll: string
   }
   profile: {
     cardLabel: string
@@ -39,6 +38,9 @@ export interface SiteMessages {
     sectionTitle: string
     featuredLabel: string
     readArticle: string
+    viewAllPosts: string
+    archiveTitle: string
+    archiveIntro: string
     items: Post[]
   }
   experience: {
@@ -54,11 +56,18 @@ export interface SiteMessages {
   projects: {
     eyebrow: string
     sectionTitle: string
+    pageEyebrow: string
+    pageTitle: string
+    pageIntro: string
+    newLabel: string
+    liveLabel: string
+    inProgressLabel: string
     problemLabel: string
     resultLabel: string
     sourceCode: string
     viewDemo: string
     comingSoon: string
+    viewAllProjects: string
     items: Project[]
   }
   footer: {
@@ -106,8 +115,7 @@ export const messages: Record<Locale, SiteMessages> = {
       switchToDarkTheme: 'Mudar para o tema escuro',
       techStack: 'Principais tecnologias',
       activityIndicators: 'Indicadores de atividade',
-      profilePhoto: 'Foto de Ludmilla Abreu',
-      seeAll: 'Ver todos'
+      profilePhoto: 'Foto de Ludmilla Abreu'
     },
     profile: {
       cardLabel: 'perfil',
@@ -136,6 +144,10 @@ export const messages: Record<Locale, SiteMessages> = {
       sectionTitle: 'Publicações recentes',
       featuredLabel: 'write-up em destaque',
       readArticle: 'ler artigo',
+      viewAllPosts: 'ver todas as publicações',
+      archiveTitle: 'Minhas publicações',
+      archiveIntro:
+        'Pesquisas, artigos e write-ups sobre segurança e desenvolvimento.',
       items: [
         {
           slug: 'do-reconhecimento-ao-root',
@@ -154,14 +166,6 @@ export const messages: Record<Locale, SiteMessages> = {
           category: 'write-up',
           publishedAt: '2026-07-10',
           readingTimeMinutes: 6
-        },
-        {
-          slug: 'privacy-lab',
-          title: 'Privacy lab',
-          excerpt: 'hardening · linux · pesquisa',
-          category: 'privacy',
-          publishedAt: '2026-06-28',
-          readingTimeMinutes: 8
         }
       ]
     },
@@ -176,16 +180,16 @@ export const messages: Record<Locale, SiteMessages> = {
       entries: [
         {
           slug: 'security-researcher',
-          period: 'Dez 2025 — agora',
+          period: 'Dez 2025 — agora · 8 meses',
           company: 'QuIIN',
           role: 'Pesquisadora IT em Criptografia Quântica',
           description:
-            'Integrei sistemas de CV-QKD a redes de computadores utilizando TCP/IP, adaptando protocolos TLS e PKI para o consumo de chaves criptográficas por hardware quântico. Desenvolvi um proxy para testar APIs REST via HTTPS com certificados digitais pós-quânticos, assim como relatórios técnicos e documentação científica relacionados ao projeto de pesquisa.',
-          skills: ['Go', 'Linux', 'TLS', 'PKI', ' REST API', 'Shell Script', 'VirtualBox']
+            'Pesquisa em integração de sistemas CV-QKD com redes clássicas, adaptando protocolos TLS e PKI para o consumo de chaves criptográficas por hardware quântico. Desenvolvimento de um proxy para testar APIs REST via HTTPS com certificados digitais pós-quânticos, assim como a escrita de relatórios técnicos e documentação científica.',
+          skills: ['Go', 'Linux', 'TLS', 'PKI', 'REST API', 'Shell Script', 'VirtualBox']
         },
         {
           slug: 'tecnologia e dados',
-          period: 'Dez 2024 — Dez 2025',
+          period: 'Dez 2024 — Dez 2025 · 1 ano',
           company: 'Sicoob',
           role: 'Estagiária de Tecnologia',
           description:
@@ -194,30 +198,46 @@ export const messages: Record<Locale, SiteMessages> = {
         },
         {
           slug: 'redes',
-          period: 'Abr 2024 — Dez 2024',
+          period: 'Abr 2024 — Dez 2024 · 9 meses',
           company: 'Saltur',
           role: 'Estagiária de TI',
           description:
             'Atuei com suporte a hardware, software e redes, incluindo manutenção de switches e atendimento de chamados. Também auxiliei em sistemas internos e na implantação de uma aplicação governamental durante o Carnaval.',
           skills: ['GLPI', 'C#', 'HTML/CSS', 'Redes', 'Active Directory']
+        },
+        {
+          slug: 'suporte-tecnico-unip',
+          period: 'Nov 2023 — Abr 2024 · 6 meses',
+          company: 'UNIP',
+          location: 'Salvador, Bahia, Brasil · No local',
+          role: 'Estagiária de TI',
+          description:
+            'Realizei manutenção e formatação de computadores, instalação de sistemas operacionais. Atualizações de documentos no sistema interno da universidade e cadastro biométrico de estudantes, assim como apoio nas rotinas administrativas.',
+          skills: ['Hardware', 'Suporte Técnico', 'Administração']
         }
       ],
       toolbox: [
-        { label: '~/Desenvolvimento', items: ['Python', 'Go', 'JavaScript', 'SQL', 'Rest API'] },
+        { label: '~/Desenvolvimento', items: ['Python', 'Go', 'JavaScript', 'SQL', 'REST API'] },
         { label: '~/Redes e Segurança', items: ['TCP/IP · DNS', 'TLS/PKI', 'Wireshark', 'Nmap', 'BurpSuite', 'EDR/XDR'] },
-        { label: '~/Sistemas e Suporte', items: ['Linux', 'Windows', 'Docker', 'Grafana', 'Git/GitHub'] },
-       /* { label: '~/Dados', items: ['SQL Server', 'Power BI', 'Excel'] }*/
-
+        { label: '~/Sistemas e Suporte', items: ['Linux', 'Windows', 'Docker', 'Grafana', 'Git/GitHub'] }
       ]
     },
     projects: {
       eyebrow: '~/projetos',
       sectionTitle: 'Meus projetos',
+      pageEyebrow: '[ 03 / CONSTRUINDO EM PÚBLICO ]',
+      pageTitle: 'Projetos',
+      pageIntro:
+        'Ferramentas e experimentos em segurança, automação e privacidade, documentados do problema ao resultado.',
+      newLabel: 'Novo!',
+      liveLabel: 'disponível',
+      inProgressLabel: 'em desenvolvimento',
       problemLabel: 'Problema',
       resultLabel: 'Resultado',
       sourceCode: 'código-fonte',
       viewDemo: 'ver demo',
       comingSoon: 'em breve',
+      viewAllProjects: 'ver todos os projetos',
       items: [
         {
           slug: 'recon-map',
@@ -228,6 +248,7 @@ export const messages: Record<Locale, SiteMessages> = {
             problem: 'o reconhecimento manual consumia cerca de 40 minutos por alvo.',
             result: 'o pipeline reduziu esse tempo para 6 minutos e foi usado em 5 labs próprios.'
           },
+          publishedAt: '2026-07-08',
           repoUrl: 'https://github.com/ludmilla/recon-map',
           demoUrl: 'https://recon-map.ludmilla.dev',
           status: 'live',
@@ -235,17 +256,30 @@ export const messages: Record<Locale, SiteMessages> = {
         },
         {
           slug: 'privacy-checklist',
-          index: '03',
+          index: '02',
           tag: 'lab',
           title: 'Privacy checklist',
           impact: {
             problem: 'guias de privacidade existentes usavam linguagem alarmista.',
             result: 'um checklist gradual teve mais de 240 acessos orgânicos no primeiro mês.'
           },
+          publishedAt: '2026-07-16',
           repoUrl: 'https://github.com/ludmilla/privacy-checklist',
           demoUrl: 'https://privacy-checklist.ludmilla.dev',
           status: 'live',
           coverImage: '/covers/privacy-checklist.svg'
+        },
+        {
+          slug: 'log-watch',
+          index: '03',
+          tag: 'tool',
+          title: 'Log watch',
+          impact: {
+            problem: 'a triagem manual de logs atrasava a identificação de comportamentos suspeitos.',
+            result: 'um script sinaliza padrões suspeitos em tempo real, reduzindo o tempo de resposta.'
+          },
+          publishedAt: '2026-07-24',
+          status: 'in-progress'
         }
       ]
     },
@@ -269,8 +303,7 @@ export const messages: Record<Locale, SiteMessages> = {
       switchToDarkTheme: 'Switch to dark theme',
       techStack: 'Main technologies',
       activityIndicators: 'Activity indicators',
-      profilePhoto: 'Photo of Ludmilla Abreu',
-      seeAll: 'View all'
+      profilePhoto: 'Photo of Ludmilla Abreu'
     },
     profile: {
       cardLabel: 'profile',
@@ -299,6 +332,10 @@ export const messages: Record<Locale, SiteMessages> = {
       sectionTitle: 'Recent posts',
       featuredLabel: 'featured write-up',
       readArticle: 'read article',
+      viewAllPosts: 'view all posts',
+      archiveTitle: 'All posts',
+      archiveIntro:
+        'Technical notes, research and write-ups on security, development and continuous learning.',
       items: [
         {
           slug: 'do-reconhecimento-ao-root',
@@ -317,14 +354,6 @@ export const messages: Record<Locale, SiteMessages> = {
           category: 'write-up',
           publishedAt: '2026-07-10',
           readingTimeMinutes: 6
-        },
-        {
-          slug: 'privacy-lab',
-          title: 'Privacy lab',
-          excerpt: 'hardening · linux · research',
-          category: 'privacy',
-          publishedAt: '2026-06-28',
-          readingTimeMinutes: 8
         }
       ]
     },
@@ -339,16 +368,16 @@ export const messages: Record<Locale, SiteMessages> = {
       entries: [
         {
           slug: 'security-researcher',
-          period: 'Dec 2025 — present',
+          period: 'Dec 2025 — present · 8 months',
           company: 'QuIIN',
           role: 'IT Researcher in Quantum Cryptography',
           description:
-            'Integrated Continuous-Variable Quantum Key Distribution (CV-QKD) systems with computer networks using TCP/IP, adapting TLS and PKI protocols for cryptographic key consumption by quantum hardware. Developed a proxy for testing REST APIs over HTTPS using post-quantum digital certificates. Prepared technical reports and scientific documentation related to the research project.',
+            'Research on integrating CV-QKD systems with classical networks, adapting TLS and PKI protocols for the consumption of cryptographic keys by quantum hardware. Development of a proxy to test REST APIs over HTTPS using post-quantum digital certificates, as well as technical reports and scientific documentation related to the research project.',
           skills: ['Go', 'Linux', 'TLS', 'PKI', 'REST API', 'Shell Script', 'VirtualBox']
         },
         {
           slug: 'technology-and-data',
-          period: 'Dec 2024 — Dec 2025',
+          period: 'Dec 2024 — Dec 2025 · 1 year',
           company: 'Sicoob',
           role: 'Technology Intern',
           description:
@@ -357,12 +386,22 @@ export const messages: Record<Locale, SiteMessages> = {
         },
         {
           slug: 'networks',
-          period: 'Apr 2024 — Dec 2024',
+          period: 'Apr 2024 — Dec 2024 · 9 months',
           company: 'Saltur',
           role: 'IT Intern',
           description:
             'Provided hardware, software and network support, including switch maintenance and help desk requests. Also assisted with internal systems and the deployment of a government application during Carnival.',
           skills: ['GLPI', 'C#', 'HTML/CSS', 'Networking', 'Active Directory']
+        },
+        {
+          slug: 'technical-support-unip',
+          period: 'Nov 2023 — Apr 2024 · 6 months',
+          company: 'UNIP',
+          location: 'Salvador, Bahia, Brazil · On-site',
+          role: 'IT Intern',
+          description:
+            'Performed computer maintenance and formatting, and operating system installation. Updated documents in the university’s internal system and registered students’ biometric data, as well as supporting administrative routines.',
+          skills: ['Hardware', 'Technical Support', 'Administration']
         }
       ],
       toolbox: [
@@ -374,11 +413,19 @@ export const messages: Record<Locale, SiteMessages> = {
     projects: {
       eyebrow: '~/projects',
       sectionTitle: 'My projects',
+      pageEyebrow: '[ 03 / BUILDING IN PUBLIC ]',
+      pageTitle: 'Projects',
+      pageIntro:
+        'Tools and experiments in security, automation and privacy, documented from problem to outcome.',
+      newLabel: 'New!',
+      liveLabel: 'available',
+      inProgressLabel: 'in progress',
       problemLabel: 'Problem',
       resultLabel: 'Result',
       sourceCode: 'source code',
       viewDemo: 'view demo',
       comingSoon: 'coming soon',
+      viewAllProjects: 'view all projects',
       items: [
         {
           slug: 'recon-map',
@@ -389,6 +436,7 @@ export const messages: Record<Locale, SiteMessages> = {
             problem: 'manual reconnaissance took around 40 minutes per target.',
             result: 'the pipeline cut that time to 6 minutes and was used in 5 personal labs.'
           },
+          publishedAt: '2026-07-08',
           repoUrl: 'https://github.com/ludmilla/recon-map',
           demoUrl: 'https://recon-map.ludmilla.dev',
           status: 'live',
@@ -396,17 +444,30 @@ export const messages: Record<Locale, SiteMessages> = {
         },
         {
           slug: 'privacy-checklist',
-          index: '03',
+          index: '02',
           tag: 'lab',
           title: 'Privacy checklist',
           impact: {
             problem: 'existing privacy guides relied on alarmist language.',
             result: 'a gradual checklist reached over 240 organic visits in its first month.'
           },
+          publishedAt: '2026-07-16',
           repoUrl: 'https://github.com/ludmilla/privacy-checklist',
           demoUrl: 'https://privacy-checklist.ludmilla.dev',
           status: 'live',
           coverImage: '/covers/privacy-checklist.svg'
+        },
+        {
+          slug: 'log-watch',
+          index: '03',
+          tag: 'tool',
+          title: 'Log watch',
+          impact: {
+            problem: 'manual log triage delayed the identification of suspicious behavior.',
+            result: 'a triage script flags suspicious patterns in real time, cutting response time.'
+          },
+          publishedAt: '2026-07-24',
+          status: 'in-progress'
         }
       ]
     },
@@ -430,8 +491,7 @@ export const messages: Record<Locale, SiteMessages> = {
       switchToDarkTheme: 'Cambiar al tema oscuro',
       techStack: 'Tecnologías principales',
       activityIndicators: 'Indicadores de actividad',
-      profilePhoto: 'Foto de Ludmilla Abreu',
-      seeAll: 'Ver todos'
+      profilePhoto: 'Foto de Ludmilla Abreu'
     },
     profile: {
       cardLabel: 'perfil',
@@ -460,6 +520,10 @@ export const messages: Record<Locale, SiteMessages> = {
       sectionTitle: 'Publicaciones recientes',
       featuredLabel: 'write-up destacado',
       readArticle: 'leer artículo',
+      viewAllPosts: 'ver todas las publicaciones',
+      archiveTitle: 'Todas las publicaciones',
+      archiveIntro:
+        'Notas técnicas, investigaciones y write-ups sobre seguridad, desarrollo y aprendizaje continuo.',
       items: [
         {
           slug: 'do-reconhecimento-ao-root',
@@ -478,14 +542,6 @@ export const messages: Record<Locale, SiteMessages> = {
           category: 'write-up',
           publishedAt: '2026-07-10',
           readingTimeMinutes: 6
-        },
-        {
-          slug: 'privacy-lab',
-          title: 'Privacy lab',
-          excerpt: 'hardening · linux · investigación',
-          category: 'privacy',
-          publishedAt: '2026-06-28',
-          readingTimeMinutes: 8
         }
       ]
     },
@@ -500,16 +556,16 @@ export const messages: Record<Locale, SiteMessages> = {
       entries: [
         {
           slug: 'security-researcher',
-          period: 'Dic 2025 — actualidad',
+          period: 'Dic 2025 — actualidad · 8 meses',
           company: 'QuIIN',
           role: 'Investigadora de TI en Criptografía Cuántica',
           description:
-            'Integré sistemas de distribución cuántica de claves de variable continua (CV-QKD) con redes de computadoras mediante TCP/IP, adaptando protocolos TLS y PKI para el consumo de claves criptográficas por hardware cuántico. Desarrollé un proxy para probar APIs REST sobre HTTPS utilizando certificados digitales poscuánticos. Elaboré informes técnicos y documentación científica relacionados con el proyecto de investigación.',
+            'Investigación sobre la integración de sistemas CV-QKD con redes clásicas, adaptando protocolos TLS y PKI para el consumo de claves criptográficas por hardware cuántico. Desarrollo de un proxy para probar APIs REST mediante HTTPS con certificados digitales poscuánticos, así como informes técnicos y documentación científica relacionados con el proyecto de investigación.',
           skills: ['Go', 'Linux', 'TLS', 'PKI', 'REST API', 'Shell Script', 'VirtualBox']
         },
         {
           slug: 'technology-and-data',
-          period: 'Dic 2024 — Dic 2025',
+          period: 'Dic 2024 — Dic 2025 · 1 año',
           company: 'Sicoob',
           role: 'Pasante de Tecnología',
           description:
@@ -518,12 +574,22 @@ export const messages: Record<Locale, SiteMessages> = {
         },
         {
           slug: 'networks',
-          period: 'Abr 2024 — Dic 2024',
+          period: 'Abr 2024 — Dic 2024 · 9 meses',
           company: 'Saltur',
           role: 'Pasante de TI',
           description:
             'Trabajé con soporte de hardware, software y redes, incluyendo mantenimiento de switches y atención de solicitudes. También colaboré con sistemas internos y con la implementación de una aplicación gubernamental durante el Carnaval.',
           skills: ['GLPI', 'C#', 'HTML/CSS', 'Redes', 'Active Directory']
+        },
+        {
+          slug: 'soporte-tecnico-unip',
+          period: 'Nov 2023 — Abr 2024 · 6 meses',
+          company: 'UNIP',
+          location: 'Salvador, Bahía, Brasil · Presencial',
+          role: 'Pasante de TI',
+          description:
+            'Realicé el mantenimiento y formateo de computadoras y la instalación de sistemas operativos. Actualicé documentos en el sistema interno de la universidad y registré los datos biométricos de los estudiantes, además de apoyar las rutinas administrativas.',
+          skills: ['Hardware', 'Soporte Técnico', 'Administración']
         }
       ],
       toolbox: [
@@ -535,11 +601,19 @@ export const messages: Record<Locale, SiteMessages> = {
     projects: {
       eyebrow: '~/proyectos',
       sectionTitle: 'Mis proyectos',
+      pageEyebrow: '[ 03 / CONSTRUYENDO EN PÚBLICO ]',
+      pageTitle: 'Proyectos',
+      pageIntro:
+        'Herramientas y experimentos de seguridad, automatización y privacidad, documentados desde el problema hasta el resultado.',
+      newLabel: '¡Nuevo!',
+      liveLabel: 'disponible',
+      inProgressLabel: 'en desarrollo',
       problemLabel: 'Problema',
       resultLabel: 'Resultado',
       sourceCode: 'código fuente',
       viewDemo: 'ver demo',
       comingSoon: 'próximamente',
+      viewAllProjects: 'ver todos los proyectos',
       items: [
         {
           slug: 'recon-map',
@@ -550,6 +624,7 @@ export const messages: Record<Locale, SiteMessages> = {
             problem: 'el reconocimiento manual tardaba unos 40 minutos por objetivo.',
             result: 'el pipeline redujo ese tiempo a 6 minutos y se usó en 5 laboratorios propios.'
           },
+          publishedAt: '2026-07-08',
           repoUrl: 'https://github.com/ludmilla/recon-map',
           demoUrl: 'https://recon-map.ludmilla.dev',
           status: 'live',
@@ -557,17 +632,30 @@ export const messages: Record<Locale, SiteMessages> = {
         },
         {
           slug: 'privacy-checklist',
-          index: '03',
+          index: '02',
           tag: 'lab',
           title: 'Privacy checklist',
           impact: {
             problem: 'las guías de privacidad existentes utilizaban un lenguaje alarmista.',
             result: 'una lista gradual superó las 240 visitas orgánicas durante el primer mes.'
           },
+          publishedAt: '2026-07-16',
           repoUrl: 'https://github.com/ludmilla/privacy-checklist',
           demoUrl: 'https://privacy-checklist.ludmilla.dev',
           status: 'live',
           coverImage: '/covers/privacy-checklist.svg'
+        },
+        {
+          slug: 'log-watch',
+          index: '03',
+          tag: 'tool',
+          title: 'Log watch',
+          impact: {
+            problem: 'la revisión manual de logs retrasaba la identificación de comportamientos sospechosos.',
+            result: 'un script detecta patrones sospechosos en tiempo real y reduce el tiempo de respuesta.'
+          },
+          publishedAt: '2026-07-24',
+          status: 'in-progress'
         }
       ]
     },

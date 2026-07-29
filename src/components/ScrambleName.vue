@@ -30,7 +30,7 @@ onMounted(() => {
 .scramble-name {
   display: inline;
   font-family: var(--font-mono);
-  font-size: 47px;
+  font-size: clamp(34px, 6vw, 47px);
   font-weight: 400;
   cursor: default;
 }

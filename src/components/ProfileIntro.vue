@@ -120,8 +120,8 @@ const { copy } = useLocale()
 }
 
 .link-btn--primary {
-  background: var(--ink);
   color: var(--canvas);
+  background: var(--ink);
   border-color: var(--ink);
   font-weight: 700;
 }

@@ -45,6 +45,7 @@ function toggle() {
     >
       <div class="entry-body-shell">
         <div class="entry-body-inner">
+          <p v-if="entry.location" class="entry-location">{{ entry.location }}</p>
           <p class="entry-description">{{ entry.description }}</p>
 
           <ul class="entry-skills">
@@ -148,6 +149,13 @@ function toggle() {
   font-size: 14px;
   color: var(--text-secondary);
   line-height: 1.6;
+}
+
+.entry-location {
+  margin: 0 0 -8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
 }
 
 .entry-skills {

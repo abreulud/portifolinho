@@ -13,7 +13,7 @@ const positionsCount = computed(() =>
 </script>
 
 <template>
-  <div class="experience-page">
+  <main class="experience-page">
     <p class="eyebrow">{{ copy.experience.eyebrow }}</p>
     <div class="experience-title">
       <ScrambleName :key="copy.experience.pageTitle" :text="copy.experience.pageTitle" />
@@ -35,7 +35,7 @@ const positionsCount = computed(() =>
     </div>
 
     <ExperienceToolbox :columns="copy.experience.toolbox" :label="copy.experience.toolboxLabel" />
-  </div>
+  </main>
 </template>
 
 <style scoped>

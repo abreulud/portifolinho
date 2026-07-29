@@ -1,61 +1,54 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-import CompactPostCard from '@/components/CompactPostCard.vue'
-import FeaturedPostCard from '@/components/FeaturedPostCard.vue'
 import HeroSection from '@/components/HeroSection.vue'
-import ProjectCard from '@/components/ProjectCard.vue'
+import ProjectShowcase from '@/components/ProjectShowcase.vue'
+import PublicationList from '@/components/PublicationList.vue'
 import ScrollHint from '@/components/ScrollHint.vue'
 import SectionHeader from '@/components/SectionHeader.vue'
 import { useLocale } from '@/composables/useLocale'
 
 const { copy } = useLocale()
-const featuredPost = computed(() => copy.value.posts.items[0])
-const otherPosts = computed(() => copy.value.posts.items.slice(1))
+const homePublications = computed(() => copy.value.posts.items.slice(0, 2))
 </script>
 
 <template>
-  <HeroSection />
-  <ScrollHint />
+  <main>
+    <HeroSection />
+    <ScrollHint />
 
-  <section id="projetos" class="projects-section">
-    <SectionHeader
-      :eyebrow="copy.projects.eyebrow"
-      :title="copy.projects.sectionTitle"
-      :see-all-label="copy.accessibility.seeAll"
-      see-all-to="/projetos"
-    />
-
-    <div class="projects-grid">
-      <ProjectCard
-        v-for="project in copy.projects.items"
-        :key="project.slug"
-        :project="project"
+    <section id="projetos">
+      <SectionHeader
+        :eyebrow="copy.projects.eyebrow"
+        :title="copy.projects.sectionTitle"
+        :see-all-label="copy.projects.viewAllProjects"
+        see-all-to="/projetos"
       />
-    </div>
-  </section>
 
-  <section id="blog" class="posts-section">
-    <SectionHeader
-      :eyebrow="copy.posts.eyebrow"
-      :title="copy.posts.sectionTitle"
-      :see-all-label="copy.accessibility.seeAll"
-      see-all-to="/blog"
-    />
+      <ProjectShowcase :projects="copy.projects.items" />
 
-    <div class="posts-grid">
-      <FeaturedPostCard v-if="featuredPost" :post="featuredPost" />
+      <router-link to="/projetos" class="projects-see-all">
+        {{ copy.projects.viewAllProjects }}
+        <span aria-hidden="true">→</span>
+      </router-link>
+    </section>
 
-      <div class="posts-side-stack">
-        <CompactPostCard
-          v-for="(post, i) in otherPosts"
-          :key="post.slug"
-          :post="post"
-          :index="String(i + 1).padStart(2, '0')"
-        />
-      </div>
-    </div>
-  </section>
+    <section id="blog" class="posts-section">
+      <SectionHeader
+        :eyebrow="copy.posts.eyebrow"
+        :title="copy.posts.sectionTitle"
+        :see-all-label="copy.posts.viewAllPosts"
+        see-all-to="/blog"
+      />
+
+      <PublicationList :posts="homePublications" archive-link="/blog" />
+
+      <router-link to="/blog" class="publications-see-all">
+        {{ copy.posts.viewAllPosts }}
+        <span aria-hidden="true">→</span>
+      </router-link>
+    </section>
+  </main>
 </template>
 
 <style scoped>
@@ -63,28 +56,48 @@ const otherPosts = computed(() => copy.value.posts.items.slice(1))
   margin-top: 64px;
 }
 
-.posts-grid {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 20px;
-}
-
-.posts-side-stack {
+.projects-see-all,
+.publications-see-all {
+  width: fit-content;
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  align-items: center;
+  gap: 8px;
+  margin: 28px auto 0;
+  padding: 6px 4px;
+  color: var(--signal-text);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-decoration: none;
+  transition: gap 0.2s ease, color 0.2s ease;
 }
 
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+.projects-see-all:hover,
+.publications-see-all:hover {
+  gap: 12px;
+  color: var(--signal);
 }
 
-@media (max-width: 860px) {
-  .posts-grid,
-  .projects-grid {
-    grid-template-columns: 1fr;
+.projects-see-all:focus-visible,
+.publications-see-all:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 5px;
+  border-radius: 4px;
+}
+
+@media (max-width: 640px) {
+  .projects-see-all {
+    margin-top: 22px;
+  }
+
+  .publications-see-all {
+    margin-top: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projects-see-all,
+  .publications-see-all {
+    transition: none;
   }
 }
 </style>
