@@ -17,7 +17,7 @@ function toggle() {
 </script>
 
 <template>
-  <div class="entry" :class="{ 'entry--open': isOpen }">
+  <article class="entry" :class="{ 'entry--open': isOpen }">
     <button
       :id="buttonId"
       type="button"
@@ -33,7 +33,7 @@ function toggle() {
         <span class="entry-company">{{ entry.company }}</span>
       </span>
 
-      <span class="entry-chevron" aria-hidden="true">⌄</span>
+      <span class="entry-sign" aria-hidden="true">⌄</span>
     </button>
 
     <div
@@ -48,13 +48,15 @@ function toggle() {
           <p v-if="entry.location" class="entry-location">{{ entry.location }}</p>
           <p class="entry-description">{{ entry.description }}</p>
 
-          <ul class="entry-skills">
-            <li v-for="skill in entry.skills" :key="skill" class="skill-chip">{{ skill }}</li>
+          <ul class="entry-skills" aria-label="Skills">
+            <li v-for="skill in entry.skills" :key="skill" class="skill-chip">
+              {{ skill }}
+            </li>
           </ul>
         </div>
       </div>
     </div>
-  </div>
+  </article>
 </template>
 
 <style scoped>
@@ -67,67 +69,84 @@ function toggle() {
 }
 
 .entry-head {
-  width: 100%;
   display: grid;
-  grid-template-columns: 140px 1fr 32px;
-  gap: 20px;
+  grid-template-columns: 210px minmax(0, 1fr) 36px;
+  gap: 24px;
   align-items: center;
-  padding: 24px 4px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-align: left;
-  font-family: inherit;
+  width: 100%;
+  padding: 22px 4px;
   color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: transform 160ms ease;
 }
 
 .entry-head:focus-visible {
   outline: 2px solid var(--signal);
   outline-offset: 4px;
-  border-radius: 4px;
 }
 
 .entry-period {
-  font-family: var(--font-mono);
-  font-size: 13px;
   color: var(--signal-text);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 .entry-heading {
   display: flex;
+  min-width: 0;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
 }
 
 .entry-role {
+  color: var(--ink);
   font-family: var(--font-mono);
   font-size: 18px;
+  line-height: 1.35;
 }
 
 .entry-company {
-  font-size: 13px;
   color: var(--text-muted);
+  font-size: 13px;
 }
 
-.entry-chevron {
+.entry-sign {
   justify-self: end;
   color: var(--text-muted);
-  transition: transform 0.2s;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
 }
 
-.entry--open .entry-chevron {
-  transform: rotate(180deg);
+.entry--open .entry-sign {
   color: var(--signal-text);
+  transform: rotate(180deg);
 }
 
 .entry-body {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.25s ease;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    grid-template-rows 250ms ease,
+    opacity 180ms ease,
+    visibility 0s linear 250ms;
 }
 
 .entry--open .entry-body {
   grid-template-rows: 1fr;
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
 }
 
 .entry-body-shell {
@@ -137,63 +156,97 @@ function toggle() {
 
 .entry-body-inner {
   display: flex;
+  align-items: flex-start;
   flex-direction: column;
   gap: 16px;
-  align-items: flex-start;
-  padding: 0 4px 28px 164px;
+  padding: 0 44px 28px 238px;
 }
 
 .entry-description {
-  max-width: 720px;
+  max-width: 760px;
   margin: 0;
-  font-size: 14px;
   color: var(--text-secondary);
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.7;
 }
 
 .entry-location {
   margin: 0 0 -8px;
-  font-family: var(--font-mono);
-  font-size: 12px;
   color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.5;
 }
 
 .entry-skills {
   display: flex;
-  gap: 8px;
   flex-wrap: wrap;
+  gap: 8px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .skill-chip {
-  font-family: var(--font-mono);
-  font-size: 11px;
+  padding: 6px 12px;
   color: var(--text-muted);
   border: 0.5px solid var(--border-strong);
   border-radius: 999px;
-  padding: 5px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.3;
   white-space: nowrap;
+}
+
+@media (hover: hover) {
+  .entry-head:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 900px) {
+  .entry-head {
+    grid-template-columns: 170px minmax(0, 1fr) 32px;
+    gap: 20px;
+  }
+
+  .entry-body-inner {
+    padding-left: 190px;
+  }
 }
 
 @media (max-width: 640px) {
   .entry-head {
-    grid-template-columns: 1fr 24px;
+    grid-template-columns: minmax(0, 1fr) 32px;
+    gap: 10px 16px;
+    padding: 20px 4px;
   }
 
   .entry-period {
     grid-column: 1 / -1;
   }
 
+  .entry-heading {
+    grid-column: 1;
+  }
+
+  .entry-sign {
+    grid-column: 2;
+  }
+
+  .entry-role {
+    font-size: 16px;
+  }
+
   .entry-body-inner {
-    padding-left: 4px;
+    padding: 0 4px 24px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .entry-body,
-  .entry-chevron {
+  .entry-head,
+  .entry-sign,
+  .entry-body {
     transition: none;
   }
 }

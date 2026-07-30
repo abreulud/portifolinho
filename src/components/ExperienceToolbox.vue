@@ -1,55 +1,39 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-
 import type { ToolboxColumn } from '@/types/content'
 
-const props = defineProps<{
+defineProps<{
   columns: ToolboxColumn[]
   label: string
 }>()
 
-const totalItems = computed(() =>
-  props.columns.reduce((total, column) => total + column.items.length, 0)
-)
-
-const groupMarks = ['</>', '#', '>_']
+function displayLabel(label: string) {
+  return label.replace(/^~\//, '')
+}
 </script>
 
 <template>
-  <section class="toolbox" aria-labelledby="toolbox-title">
-    <header class="toolbox-header">
-      <div>
-        <p class="toolbox-kicker">stack.config</p>
-        <h2 id="toolbox-title" class="toolbox-title">{{ label }}</h2>
-      </div>
-
-      <p class="toolbox-total">
-        <span class="status-dot" aria-hidden="true" />
-        {{ String(totalItems).padStart(2, '0') }} skills
-      </p>
+  <section class="toolbox" aria-labelledby="experience-toolbox-title">
+    <header class="toolbox-heading">
+      <p class="toolbox-eyebrow">stack / skills</p>
+      <h2 id="experience-toolbox-title" class="toolbox-title">{{ label }}</h2>
     </header>
 
-    <div class="toolbox-grid">
+    <div class="toolbox-list">
       <section
         v-for="(column, index) in columns"
         :key="column.label"
-        class="toolbox-group"
+        class="toolbox-row"
       >
-        <header class="group-header">
-          <span class="group-mark" aria-hidden="true">
-            {{ groupMarks[index] ?? '•' }}
+        <header class="row-heading">
+          <span class="row-index" aria-hidden="true">
+            {{ String(index + 1).padStart(2, '0') }}
           </span>
-
-          <div class="group-heading">
-            <p class="group-index">0{{ index + 1 }}</p>
-            <h3 class="group-title">{{ column.label }}</h3>
-          </div>
+          <h3 class="row-title">{{ displayLabel(column.label) }}</h3>
         </header>
 
         <ul class="skill-list">
-          <li v-for="item in column.items" :key="item" class="skill-item">
-            <span class="skill-dot" aria-hidden="true" />
-            <span>{{ item }}</span>
+          <li v-for="item in column.items" :key="item" class="skill-chip">
+            {{ item }}
           </li>
         </ul>
       </section>
@@ -60,30 +44,25 @@ const groupMarks = ['</>', '#', '>_']
 <style scoped>
 .toolbox {
   margin-top: clamp(48px, 7vw, 72px);
-  padding-top: 28px;
-  border-top: 0.5px solid var(--border-strong);
 }
 
-.toolbox-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 24px;
+.toolbox-heading {
+  margin-bottom: 22px;
 }
 
-.toolbox-kicker,
-.toolbox-total,
-.group-index,
-.skill-item {
+.toolbox-eyebrow,
+.row-index,
+.row-title,
+.skill-chip {
   font-family: var(--font-mono);
 }
 
-.toolbox-kicker {
+.toolbox-eyebrow {
   margin-bottom: 8px;
   color: var(--signal-text);
-  font-size: 11px;
-  letter-spacing: 0.1em;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -91,186 +70,117 @@ const groupMarks = ['</>', '#', '>_']
   color: var(--ink);
   font-size: clamp(24px, 3vw, 34px);
   font-weight: 600;
-  line-height: 1.1;
+  line-height: 1.15;
 }
 
-.toolbox-total {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--text-muted);
-  font-size: 11px;
-  white-space: nowrap;
+.toolbox-list {
+  border-top: 0.5px solid var(--border-strong);
 }
 
-.status-dot,
-.skill-dot {
-  flex: 0 0 auto;
-  border-radius: 50%;
-  background: var(--signal);
-}
-
-.status-dot {
-  width: 7px;
-  height: 7px;
-  box-shadow: 0 0 0 4px var(--signal-soft);
-}
-
-.toolbox-grid {
+.toolbox-row {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-}
-
-.toolbox-group {
-  min-width: 0;
-  padding: 20px;
-  overflow: hidden;
-  background: color-mix(in srgb, var(--surface) 92%, var(--signal-soft));
-  border: 0.5px solid var(--border);
-  border-radius: 18px;
-  transition:
-    transform 180ms ease,
-    border-color 180ms ease,
-    box-shadow 180ms ease;
-}
-
-.group-header {
-  display: flex;
+  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 56px);
   align-items: center;
+  padding: 28px 0;
+  border-bottom: 0.5px solid var(--border-strong);
+}
+
+.row-heading {
+  display: flex;
+  align-items: baseline;
   gap: 12px;
-  padding-bottom: 16px;
-  margin-bottom: 16px;
-  border-bottom: 0.5px solid var(--border);
-}
-
-.group-mark {
-  display: grid;
-  flex: 0 0 42px;
-  width: 42px;
-  height: 42px;
-  place-items: center;
-  color: var(--signal-text);
-  background: var(--signal-soft);
-  border: 0.5px solid color-mix(in srgb, var(--signal) 38%, transparent);
-  border-radius: 12px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.group-heading {
   min-width: 0;
 }
 
-.group-index {
-  margin-bottom: 4px;
-  color: var(--text-muted);
+.row-index {
+  flex: 0 0 auto;
+  color: var(--signal-text);
   font-size: 10px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
 }
 
-.group-title {
+.row-title {
   color: var(--ink);
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.35;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.45;
+  text-transform: uppercase;
   overflow-wrap: anywhere;
 }
 
 .skill-list {
-  display: grid;
-  gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.skill-item {
-  display: flex;
+.skill-chip {
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  min-height: 42px;
-  padding: 10px 12px;
+  min-height: 40px;
+  padding: 9px 16px;
   color: var(--text-secondary);
-  background: color-mix(in srgb, var(--canvas) 72%, transparent);
-  border: 0.5px solid var(--border);
-  border-radius: 12px;
+  background: transparent;
+  border: 0.5px solid var(--border-strong);
+  border-radius: 999px;
   font-size: 12px;
-  line-height: 1.35;
-}
-
-.skill-dot {
-  width: 6px;
-  height: 6px;
-  box-shadow: 0 0 0 3px var(--signal-soft);
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
 }
 
 @media (hover: hover) {
-  .toolbox-group:hover {
-    transform: translateY(-3px);
-    border-color: var(--border-strong);
-    box-shadow: 0 14px 30px rgb(0 0 0 / 6%);
+  .skill-chip:hover {
+    color: var(--signal-text);
+    background: var(--signal-soft);
+    border-color: var(--signal);
+    transform: translateY(-1px);
   }
 }
 
-@media (max-width: 900px) {
-  .toolbox-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .toolbox-group:last-child {
-    grid-column: 1 / -1;
-  }
-
-  .toolbox-group:last-child .skill-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+@media (max-width: 800px) {
+  .toolbox-row {
+    grid-template-columns: minmax(150px, 190px) minmax(0, 1fr);
+    gap: 24px;
   }
 }
 
 @media (max-width: 640px) {
-  .toolbox {
-    padding-top: 24px;
+  .toolbox-heading {
+    margin-bottom: 18px;
   }
 
-  .toolbox-header {
-    align-items: flex-start;
-    margin-bottom: 20px;
-  }
-
-  .toolbox-grid {
+  .toolbox-row {
     grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 24px 0;
   }
 
-  .toolbox-group,
-  .toolbox-group:last-child {
-    grid-column: auto;
+  .skill-list {
+    gap: 8px;
   }
 
-  .skill-list,
-  .toolbox-group:last-child .skill-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .skill-chip {
+    flex: 1 1 138px;
+    justify-content: center;
+    min-height: 42px;
+    padding-inline: 14px;
+    text-align: center;
   }
 }
 
-@media (max-width: 420px) {
-  .toolbox-header {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .toolbox-group {
-    padding: 16px;
-  }
-
-  .skill-list,
-  .toolbox-group:last-child .skill-list {
-    grid-template-columns: 1fr;
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
-  .toolbox-group {
+  .skill-chip {
     transition: none;
   }
 }
