@@ -52,6 +52,11 @@ const homePublications = computed(() => copy.value.posts.items.slice(0, 2))
 </template>
 
 <style scoped>
+
+#projetos {
+  margin-top: 70px;
+}
+
 .posts-section {
   margin-top: 64px;
 }

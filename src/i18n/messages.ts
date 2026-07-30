@@ -30,7 +30,7 @@ export interface SiteMessages {
     availability: string
     stats: ProfileStat[]
     socialLinks: SocialLink[]
-    
+
   }
   posts: {
     eyebrow: string
@@ -133,7 +133,7 @@ export const messages: Record<Locale, SiteMessages> = {
         { label: 'linkedin', href: 'https://linkedin.com/in/ludmilla-abreu', glyph: '↗' },
         { label: 'github', href: 'https://github.com/abreulud', glyph: '⌘' }
       ],
-          },
+    },
     posts: {
       eyebrow: '~/blog',
       sectionTitle: 'Publicações recentes',
@@ -171,7 +171,7 @@ export const messages: Record<Locale, SiteMessages> = {
         'Experiências em tecnologia, pesquisa e segurança organizadas como um log: o que fiz, o que aprendi e o impacto gerado.',
       positionsLabel: 'posições',
       ongoingLabel: 'em constante aprendizado',
-      toolboxLabel: 'toolbox',
+      toolboxLabel: 'tecnologias & ferramentas',
       entries: [
         {
           slug: 'security-researcher',
@@ -213,7 +213,7 @@ export const messages: Record<Locale, SiteMessages> = {
       ],
       toolbox: [
         { label: '~/Desenvolvimento', items: ['Python', 'Go', 'JavaScript', 'SQL', 'REST API'] },
-        { label: '~/Redes e Segurança', items: ['TCP/IP · DNS', 'TLS/PKI', 'Wireshark', 'Nmap', 'BurpSuite', 'EDR/XDR'] },
+        { label: '~/Redes e Segurança', items: ['TCP/IP · DNS', 'TLS/PKI', 'Wireshark', 'Nmap', 'Burp Suite', 'EDR/XDR'] },
         { label: '~/Sistemas e Suporte', items: ['Linux', 'Windows', 'Docker', 'Grafana', 'Git/GitHub'] }
       ]
     },
@@ -355,7 +355,7 @@ export const messages: Record<Locale, SiteMessages> = {
         'Experience in technology, research and security organized as a log: what I did, what I learned and the impact it had.',
       positionsLabel: 'positions',
       ongoingLabel: 'always learning',
-      toolboxLabel: 'toolbox',
+      toolboxLabel: 'technologies & tools',
       entries: [
         {
           slug: 'security-researcher',
@@ -396,9 +396,9 @@ export const messages: Record<Locale, SiteMessages> = {
         }
       ],
       toolbox: [
-        { label: '01 / offensive', items: ['Burp Suite', 'Nmap · ffuf', 'Metasploit'] },
-        { label: '02 / code', items: ['Python', 'JavaScript', 'Shell · Git'] },
-        { label: '03 / systems', items: ['Linux', 'Networks', 'Docker'] }
+        { label: '~/Development', items: ['Python', 'Go', 'JavaScript', 'SQL', 'REST API'] },
+        { label: '~/Networks & Security', items: ['TCP/IP · DNS', 'TLS/PKI', 'Wireshark', 'Nmap', 'Burp Suite', 'EDR/XDR'] },
+        { label: '~/Systems & Support', items: ['Linux', 'Windows', 'Docker', 'Grafana', 'Git/GitHub'] }
       ]
     },
     projects: {
@@ -539,7 +539,7 @@ export const messages: Record<Locale, SiteMessages> = {
         'Experiencias en tecnología, investigación y seguridad organizadas como un log: qué hice, qué aprendí y el impacto que tuvo.',
       positionsLabel: 'posiciones',
       ongoingLabel: 'en aprendizaje constante',
-      toolboxLabel: 'toolbox',
+      toolboxLabel: 'tecnologías y herramientas',
       entries: [
         {
           slug: 'security-researcher',
@@ -580,9 +580,9 @@ export const messages: Record<Locale, SiteMessages> = {
         }
       ],
       toolbox: [
-        { label: '01 / offensive', items: ['Burp Suite', 'Nmap · ffuf', 'Metasploit'] },
-        { label: '02 / code', items: ['Python', 'JavaScript', 'Shell · Git'] },
-        { label: '03 / systems', items: ['Linux', 'Networks', 'Docker'] }
+        { label: '~/Desarrollo', items: ['Python', 'Go', 'JavaScript', 'SQL', 'REST API'] },
+        { label: '~/Redes y Seguridad', items: ['TCP/IP · DNS', 'TLS/PKI', 'Wireshark', 'Nmap', 'Burp Suite', 'EDR/XDR'] },
+        { label: '~/Sistemas y Soporte', items: ['Linux', 'Windows', 'Docker', 'Grafana', 'Git/GitHub'] }
       ]
     },
     projects: {

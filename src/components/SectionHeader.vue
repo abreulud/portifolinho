@@ -44,7 +44,7 @@ withDefaults(
   font-size: 12px;
   letter-spacing: 0.08em;
   color: var(--signal-text);
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .section-title {
