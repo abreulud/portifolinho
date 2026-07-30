@@ -14,7 +14,7 @@ function displayLabel(label: string) {
 <template>
   <section class="toolbox" aria-labelledby="experience-toolbox-title">
     <header class="toolbox-heading">
-      <p class="toolbox-eyebrow">stack / skills</p>
+      <p class="toolbox-eyebrow">~/skills</p>
       <h2 id="experience-toolbox-title" class="toolbox-title">{{ label }}</h2>
     </header>
 
