@@ -1,5 +1,4 @@
 import type {
-  CredibilityBadge,
   ExperienceEntry,
   Post,
   ProfileStat,
@@ -31,7 +30,7 @@ export interface SiteMessages {
     availability: string
     stats: ProfileStat[]
     socialLinks: SocialLink[]
-    badges: CredibilityBadge[]
+    
   }
   posts: {
     eyebrow: string
@@ -134,11 +133,7 @@ export const messages: Record<Locale, SiteMessages> = {
         { label: 'linkedin', href: 'https://linkedin.com/in/ludmilla-abreu', glyph: '↗' },
         { label: 'github', href: 'https://github.com/abreulud', glyph: '⌘' }
       ],
-      badges: [
-        { label: '312 contribuições · 12 meses', live: true },
-        { label: 'top 8% · HackTheBox', icon: '🏆' }
-      ]
-    },
+          },
     posts: {
       eyebrow: '~/blog',
       sectionTitle: 'Publicações recentes',
@@ -322,10 +317,6 @@ export const messages: Record<Locale, SiteMessages> = {
         { label: 'linkedin', href: 'https://linkedin.com/in/ludmilla-abreu', glyph: '↗' },
         { label: 'github', href: 'https://github.com/abreulud', glyph: '⌘' }
       ],
-      badges: [
-        { label: '312 contributions · 12 months', live: true },
-        { label: 'top 8% · HackTheBox', icon: '🏆' }
-      ]
     },
     posts: {
       eyebrow: '~/blog',
@@ -510,10 +501,6 @@ export const messages: Record<Locale, SiteMessages> = {
         { label: 'linkedin', href: 'https://linkedin.com/in/ludmilla-abreu', glyph: '↗' },
         { label: 'github', href: 'https://github.com/abreulud', glyph: '⌘' }
       ],
-      badges: [
-        { label: '312 contribuciones · 12 meses', live: true },
-        { label: 'top 8% · HackTheBox', icon: '🏆' }
-      ]
     },
     posts: {
       eyebrow: '~/blog',

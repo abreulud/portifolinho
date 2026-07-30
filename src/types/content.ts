@@ -10,11 +10,7 @@ export interface SocialLink {
   primary?: boolean
 }
 
-export interface CredibilityBadge {
-  label: string
-  icon?: string
-  live?: boolean
-}
+
 
 export type PostCategory = 'ctf' | 'web-security' | 'privacy' | 'write-up' | 'learning'
 
