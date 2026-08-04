@@ -68,7 +68,7 @@ function displayLabel(label: string) {
 
 .toolbox-title {
   color: var(--ink);
-  font-size: clamp(24px, 3vw, 34px);
+  font-size: clamp(24px, 3vw, 25px);
   font-weight: 600;
   line-height: 1.15;
 }

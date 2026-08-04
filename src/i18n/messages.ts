@@ -204,7 +204,6 @@ export const messages: Record<Locale, SiteMessages> = {
           slug: 'suporte-tecnico-unip',
           period: 'Nov 2023 — Abr 2024 · 6 meses',
           company: 'UNIP',
-          location: 'Salvador, Bahia, Brasil · No local',
           role: 'Estagiária de TI',
           description:
             'Realizei manutenção e formatação de computadores, instalação de sistemas operacionais. Atualizações de documentos no sistema interno da universidade e cadastro biométrico de estudantes, assim como apoio nas rotinas administrativas.',
@@ -388,7 +387,6 @@ export const messages: Record<Locale, SiteMessages> = {
           slug: 'technical-support-unip',
           period: 'Nov 2023 — Apr 2024 · 6 months',
           company: 'UNIP',
-          location: 'Salvador, Bahia, Brazil · On-site',
           role: 'IT Intern',
           description:
             'Performed computer maintenance and formatting, and operating system installation. Updated documents in the university’s internal system and registered students’ biometric data, as well as supporting administrative routines.',
@@ -572,7 +570,6 @@ export const messages: Record<Locale, SiteMessages> = {
           slug: 'soporte-tecnico-unip',
           period: 'Nov 2023 — Abr 2024 · 6 meses',
           company: 'UNIP',
-          location: 'Salvador, Bahía, Brasil · Presencial',
           role: 'Pasante de TI',
           description:
             'Realicé el mantenimiento y formateo de computadoras y la instalación de sistemas operativos. Actualicé documentos en el sistema interno de la universidad y registré los datos biométricos de los estudiantes, además de apoyar las rutinas administrativas.',
