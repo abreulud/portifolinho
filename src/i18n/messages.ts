@@ -219,8 +219,8 @@ export const messages: Record<Locale, SiteMessages> = {
     projects: {
       eyebrow: '~/projetos',
       sectionTitle: 'Meus projetos',
-      pageEyebrow: '[ 03 / CONSTRUINDO EM PÚBLICO ]',
-      pageTitle: 'Projetos',
+      pageEyebrow: '~/projetos',
+      pageTitle: 'Minhas construções',
       pageIntro:
         'Ferramentas e experimentos em segurança, automação e privacidade, documentados do problema ao resultado.',
       newLabel: 'Novo!',
@@ -402,8 +402,8 @@ export const messages: Record<Locale, SiteMessages> = {
     projects: {
       eyebrow: '~/projects',
       sectionTitle: 'My projects',
-      pageEyebrow: '[ 03 / BUILDING IN PUBLIC ]',
-      pageTitle: 'Projects',
+      pageEyebrow: '~/projects',
+      pageTitle: 'My Builds',
       pageIntro:
         'Tools and experiments in security, automation and privacy, documented from problem to outcome.',
       newLabel: 'New!',
@@ -585,8 +585,8 @@ export const messages: Record<Locale, SiteMessages> = {
     projects: {
       eyebrow: '~/proyectos',
       sectionTitle: 'Mis proyectos',
-      pageEyebrow: '[ 03 / CONSTRUYENDO EN PÚBLICO ]',
-      pageTitle: 'Proyectos',
+      pageEyebrow: '~/proyectos',
+      pageTitle: 'Mis Construcciones',
       pageIntro:
         'Herramientas y experimentos de seguridad, automatización y privacidad, documentados desde el problema hasta el resultado.',
       newLabel: '¡Nuevo!',
