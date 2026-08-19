@@ -123,7 +123,7 @@ export const messages: Record<Locale, SiteMessages> = {
     profile: {
       cardLabel: 'perfil',
       roleStart: 'Estudante de Ciência da Computação, focada em',
-      webSecurity: 'segurança web',
+      webSecurity: 'cibersegurança',
       roleConnector: 'e',
       backendDevelopment: 'desenvolvimento back-end',
       availability: 'disponível para projetos e oportunidades',
@@ -321,7 +321,7 @@ export const messages: Record<Locale, SiteMessages> = {
     profile: {
       cardLabel: 'profile',
       roleStart: 'Computer Science student focused on',
-      webSecurity: 'web security',
+      webSecurity: 'cybersecurity',
       roleConnector: 'and',
       backendDevelopment: 'back-end development',
       availability: 'available for projects and opportunities',
