@@ -4,7 +4,7 @@ Guitar Desktop é uma experiência web inspirada nos desktops do Windows 98, Win
 
 A aplicação não grava o vídeo diretamente. Ela organiza câmera, backing tracks e referências em uma única tela, pronta para ser capturada por um gravador de tela externo.
 
-## Experiência
+## Funcionalidades
 
 - **Webcam:** solicita permissão do navegador e exibe a câmera sem capturar áudio.
 - **Player:** aceita faixas escolhidas pela pessoa usuária, cria uma playlist e oferece controles de reprodução, volume e navegação.
@@ -21,7 +21,7 @@ Arquivos de áudio e imagem escolhidos permanecem no navegador. A webcam só é 
 
 ## Tecnologias
 
-- React 19
+- React
 - Vite
 - JavaScript
 - CSS
@@ -34,5 +34,3 @@ Arquivos de áudio e imagem escolhidos permanecem no navegador. A webcam só é 
 npm install
 npm run dev
 ```
-
-O resultado combina uma ferramenta de apoio a gravações com uma interface nostálgica, mantendo cada recurso acessível como se fosse um pequeno aplicativo do sistema.

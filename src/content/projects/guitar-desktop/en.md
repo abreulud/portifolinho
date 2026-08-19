@@ -21,7 +21,7 @@ Selected audio and image files remain in the browser. The webcam is only activat
 
 ## Technologies
 
-- React 19
+- React 
 - Vite
 - JavaScript
 - CSS
