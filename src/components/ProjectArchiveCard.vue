@@ -124,21 +124,10 @@ const statusLabel = computed(() =>
             <span aria-hidden="true">→</span>
           </RouterLink>
 
-          <a
-            v-if="project.demoUrl && !project.locked"
-            :href="project.demoUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="archive-action archive-action--primary"
-          >
-            {{ copy.projects.viewDemo }}
-            <span aria-hidden="true">→</span>
-          </a>
-
           <span
             v-if="
               project.locked ||
-              (!project.hasDetails && !project.repoUrl && !project.demoUrl)
+              (!project.hasDetails && !project.repoUrl)
             "
             class="archive-action archive-action--disabled"
             aria-disabled="true"

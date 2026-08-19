@@ -131,21 +131,10 @@ const statusLabel = computed(() =>
           {{ copy.projects.sourceCode }}
         </a>
 
-        <a
-          v-if="project.demoUrl && !project.locked"
-          :href="project.demoUrl"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="action-btn action-btn--demo"
-        >
-          <span aria-hidden="true">▶</span>
-          {{ copy.projects.viewDemo }}
-        </a>
-
         <span
           v-if="
             project.locked ||
-            (!project.hasDetails && !project.repoUrl && !project.demoUrl)
+            (!project.hasDetails && !project.repoUrl)
           "
           class="action-btn action-btn--disabled"
           aria-disabled="true"
