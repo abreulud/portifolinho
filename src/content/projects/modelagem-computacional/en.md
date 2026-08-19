@@ -4,9 +4,17 @@ An academic project developed for a Computational Modeling course. It explores h
 
 The dataset contains **20 neighborhoods and regions of Salvador** with simulated data. It was created to demonstrate the analysis workflow and does not represent real measurements from the city.
 
+## Goal
+
+One of the main goals of this work is to monitor Salvador neighborhoods through their consumption classifications. This perspective helps distinguish, for example, industrial, commercial, peripheral and affluent areas.
+
 ## Problem
 
-Without predefined labels, how can regions with similar average consumption and estimated loss patterns be separated? The project turns this question into a clustering problem and produces a visual interpretation of the results.
+In addition to organizing regions with similar average consumption and estimated loss patterns, the project seeks to identify signs of:
+
+- energy waste;
+- energy leakage, such as electricity loss in wiring due to poorly made connections;
+- possible fraud or measurement errors.
 
 ## Approach
 
@@ -24,6 +32,10 @@ The number of consumer units remains in the dataset for analysis and presentatio
 The records were divided into four profiles: low, medium, high and very high consumption. The chart below summarizes how many neighborhoods belong to each group.
 
 ![Bar chart showing the number of neighborhoods in each consumption profile.](/project-media/modelagem-computacional/distribuicao-grupos.png)
+
+## Relevance
+
+The project has social, environmental and economic impact. The analysis helps raise awareness of consumption patterns and shows how reducing waste can decrease environmental impact and contribute to greater long-term tariff stability.
 
 ## Technologies
 

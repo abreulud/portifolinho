@@ -4,9 +4,17 @@ Projeto acadêmico desenvolvido para a disciplina de Modelagem Computacional. A 
 
 A base reúne **20 bairros e regiões de Salvador** com dados simulados. Ela foi criada para demonstrar o fluxo de análise e não representa medições reais da cidade.
 
+## Objetivo
+
+Um dos principais objetivos deste trabalho é monitorar bairros de Salvador a partir de suas classificações de consumo. Essa leitura ajuda a diferenciar, por exemplo, grupos industriais, comerciais, periféricos e nobres.
+
 ## Problema
 
-Sem uma classificação pronta, como separar regiões com padrões parecidos de consumo médio e perda estimada? O projeto transforma essa pergunta em um problema de agrupamento e produz uma leitura visual dos resultados.
+Além de organizar regiões com padrões parecidos de consumo médio e perda estimada, o projeto busca verificar indícios de:
+
+- desperdício de energia;
+- vazamentos de energia, como a perda de eletricidade na fiação por emendas malfeitas;
+- possíveis fraudes ou erros de medição.
 
 ## Abordagem
 
@@ -24,6 +32,10 @@ O número de unidades consumidoras permanece no conjunto para apoiar a análise 
 Os registros foram separados em quatro perfis: baixo, médio, alto e altíssimo consumo. O gráfico abaixo resume quantos bairros ficaram em cada grupo.
 
 ![Gráfico de barras com a quantidade de bairros em cada perfil de consumo.](/project-media/modelagem-computacional/distribuicao-grupos.png)
+
+## Relevância
+
+O projeto tem impacto social, ambiental e econômico. A análise ajuda a conscientizar sobre padrões de consumo e mostra como a redução de desperdícios pode diminuir o impacto ambiental e contribuir para maior estabilidade nas tarifas a longo prazo.
 
 ## Tecnologias
 
