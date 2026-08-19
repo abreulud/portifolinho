@@ -4,7 +4,7 @@ Guitar Desktop is a web experience inspired by Windows 98, Windows XP and early-
 
 The application does not record video itself. It organizes the camera, backing tracks and references on one screen, ready to be captured with an external screen recorder.
 
-## Experience
+## Features
 
 - **Webcam:** requests browser permission and displays the camera without capturing audio.
 - **Player:** accepts tracks selected by the user, creates a playlist and provides playback, volume and navigation controls.
@@ -21,7 +21,7 @@ Selected audio and image files remain in the browser. The webcam is only activat
 
 ## Technologies
 
-- React 
+- React
 - Vite
 - JavaScript
 - CSS
@@ -34,5 +34,3 @@ Selected audio and image files remain in the browser. The webcam is only activat
 npm install
 npm run dev
 ```
-
-The result combines a recording-support tool with a nostalgic interface, keeping each feature accessible as if it were a small system application.
