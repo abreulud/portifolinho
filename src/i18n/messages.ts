@@ -61,6 +61,7 @@ export interface SiteMessages {
     newLabel: string
     liveLabel: string
     inProgressLabel: string
+    placeholderLabel: string
     problemLabel: string
     resultLabel: string
     sourceCode: string
@@ -97,7 +98,7 @@ export const navigationItems: { key: NavigationKey; path: string }[] = [
   { key: 'blog', path: '/blog' }
 ]
 
-const sharedStack = ['Python', 'Burp Suite', 'Linux', 'Nmap', 'OWASP Top 10']
+const sharedStack = ['Python', 'TypeScript', 'Vue.js', 'SQL', 'Linux', 'Burp Suite', 'OWASP']
 
 export const messages: Record<Locale, SiteMessages> = {
   pt: {
@@ -129,7 +130,13 @@ export const messages: Record<Locale, SiteMessages> = {
         { value: '2+', label: 'anos de experiência' }
       ],
       socialLinks: [
-        { label: 'baixar currículo', href: '/cv-ludmilla.pdf', glyph: '↓', primary: true },
+        {
+          label: 'baixar currículo',
+          href: '/CV%20-%20Ludmilla%20Abreu%20%28Tecnologia%29.pdf',
+          glyph: '↓',
+          primary: true,
+          download: 'CV - Ludmilla Abreu (Tecnologia).pdf'
+        },
         { label: 'linkedin', href: 'https://linkedin.com/in/ludmilla-abreu', glyph: '↗' },
         { label: 'github', href: 'https://github.com/abreulud', glyph: '⌘' }
       ],
@@ -225,28 +232,23 @@ export const messages: Record<Locale, SiteMessages> = {
         'Ferramentas e experimentos em segurança, automação e privacidade, documentados do problema ao resultado.',
       newLabel: 'Novo!',
       liveLabel: 'disponível',
-      inProgressLabel: 'em desenvolvimento',
+      inProgressLabel: 'em andamento',
+      placeholderLabel: 'em breve',
       problemLabel: 'Problema',
       resultLabel: 'Resultado',
       sourceCode: 'código-fonte',
       viewDemo: 'ver demo',
-      comingSoon: 'em breve',
+      comingSoon: 'Em breve',
       viewAllProjects: 'ver todos os projetos',
       items: [
         {
-          slug: 'recon-map',
+          slug: 'projeto-conclusao-ciencia-computacao',
           index: '01',
-          tag: 'tool',
-          title: 'Recon map',
-          impact: {
-            problem: 'o reconhecimento manual consumia cerca de 40 minutos por alvo.',
-            result: 'o pipeline reduziu esse tempo para 6 minutos e foi usado em 5 labs próprios.'
-          },
-          publishedAt: '2026-07-08',
-          repoUrl: 'https://github.com/ludmilla/recon-map',
-          demoUrl: 'https://recon-map.ludmilla.dev',
-          status: 'live',
-          coverImage: '/covers/recon-map.svg'
+          tag: 'TCC',
+          title: 'Projeto de Conclusão de Ciência da Computação',
+          topics: ['Criptografia', 'Proxy', 'TLS'],
+          status: 'in-progress',
+          locked: true
         },
         {
           slug: 'privacy-checklist',
@@ -264,16 +266,16 @@ export const messages: Record<Locale, SiteMessages> = {
           coverImage: '/covers/privacy-checklist.svg'
         },
         {
-          slug: 'log-watch',
+          slug: 'proximo-projeto',
           index: '03',
-          tag: 'tool',
-          title: 'Log watch',
+          tag: '...',
+          title: 'Próximo projeto',
           impact: {
-            problem: 'a triagem manual de logs atrasava a identificação de comportamentos suspeitos.',
-            result: 'um script sinaliza padrões suspeitos em tempo real, reduzindo o tempo de resposta.'
+            problem: '',
+            result: 'Um novo projeto será apresentado aqui em breve.'
           },
-          publishedAt: '2026-07-24',
-          status: 'in-progress'
+          status: 'in-progress',
+          placeholder: true
         }
       ]
     },
@@ -312,7 +314,13 @@ export const messages: Record<Locale, SiteMessages> = {
         { value: '2+', label: 'years of experience' }
       ],
       socialLinks: [
-        { label: 'download resume', href: '/cv-ludmilla.pdf', glyph: '↓', primary: true },
+        {
+          label: 'download resume',
+          href: '/CV%20-%20Ludmilla%20Abreu%20%28Tecnologia%29.pdf',
+          glyph: '↓',
+          primary: true,
+          download: 'CV - Ludmilla Abreu (Tecnologia).pdf'
+        },
         { label: 'linkedin', href: 'https://linkedin.com/in/ludmilla-abreu', glyph: '↗' },
         { label: 'github', href: 'https://github.com/abreulud', glyph: '⌘' }
       ],
@@ -409,27 +417,22 @@ export const messages: Record<Locale, SiteMessages> = {
       newLabel: 'New!',
       liveLabel: 'available',
       inProgressLabel: 'in progress',
+      placeholderLabel: 'coming soon',
       problemLabel: 'Problem',
       resultLabel: 'Result',
       sourceCode: 'source code',
       viewDemo: 'view demo',
-      comingSoon: 'coming soon',
+      comingSoon: 'Coming soon',
       viewAllProjects: 'view all projects',
       items: [
         {
-          slug: 'recon-map',
+          slug: 'computer-science-capstone-project',
           index: '01',
-          tag: 'tool',
-          title: 'Recon map',
-          impact: {
-            problem: 'manual reconnaissance took around 40 minutes per target.',
-            result: 'the pipeline cut that time to 6 minutes and was used in 5 personal labs.'
-          },
-          publishedAt: '2026-07-08',
-          repoUrl: 'https://github.com/ludmilla/recon-map',
-          demoUrl: 'https://recon-map.ludmilla.dev',
-          status: 'live',
-          coverImage: '/covers/recon-map.svg'
+          tag: 'TCC',
+          title: 'Computer Science Capstone Project',
+          topics: ['Cryptography', 'Proxy', 'TLS'],
+          status: 'in-progress',
+          locked: true
         },
         {
           slug: 'privacy-checklist',
@@ -447,16 +450,16 @@ export const messages: Record<Locale, SiteMessages> = {
           coverImage: '/covers/privacy-checklist.svg'
         },
         {
-          slug: 'log-watch',
+          slug: 'next-project',
           index: '03',
-          tag: 'tool',
-          title: 'Log watch',
+          tag: '...',
+          title: 'Next project',
           impact: {
-            problem: 'manual log triage delayed the identification of suspicious behavior.',
-            result: 'a triage script flags suspicious patterns in real time, cutting response time.'
+            problem: '',
+            result: 'A new project will be presented here soon.'
           },
-          publishedAt: '2026-07-24',
-          status: 'in-progress'
+          status: 'in-progress',
+          placeholder: true
         }
       ]
     },
@@ -495,7 +498,13 @@ export const messages: Record<Locale, SiteMessages> = {
         { value: '2+', label: 'años de experiencia' }
       ],
       socialLinks: [
-        { label: 'descargar currículum', href: '/cv-ludmilla.pdf', glyph: '↓', primary: true },
+        {
+          label: 'descargar currículum',
+          href: '/CV%20-%20Ludmilla%20Abreu%20%28Tecnologia%29.pdf',
+          glyph: '↓',
+          primary: true,
+          download: 'CV - Ludmilla Abreu (Tecnologia).pdf'
+        },
         { label: 'linkedin', href: 'https://linkedin.com/in/ludmilla-abreu', glyph: '↗' },
         { label: 'github', href: 'https://github.com/abreulud', glyph: '⌘' }
       ],
@@ -591,28 +600,23 @@ export const messages: Record<Locale, SiteMessages> = {
         'Herramientas y experimentos de seguridad, automatización y privacidad, documentados desde el problema hasta el resultado.',
       newLabel: '¡Nuevo!',
       liveLabel: 'disponible',
-      inProgressLabel: 'en desarrollo',
+      inProgressLabel: 'en curso',
+      placeholderLabel: 'próximamente',
       problemLabel: 'Problema',
       resultLabel: 'Resultado',
       sourceCode: 'código fuente',
       viewDemo: 'ver demo',
-      comingSoon: 'próximamente',
+      comingSoon: 'Próximamente',
       viewAllProjects: 'ver todos los proyectos',
       items: [
         {
-          slug: 'recon-map',
+          slug: 'proyecto-final-ciencias-computacion',
           index: '01',
-          tag: 'tool',
-          title: 'Recon map',
-          impact: {
-            problem: 'el reconocimiento manual tardaba unos 40 minutos por objetivo.',
-            result: 'el pipeline redujo ese tiempo a 6 minutos y se usó en 5 laboratorios propios.'
-          },
-          publishedAt: '2026-07-08',
-          repoUrl: 'https://github.com/ludmilla/recon-map',
-          demoUrl: 'https://recon-map.ludmilla.dev',
-          status: 'live',
-          coverImage: '/covers/recon-map.svg'
+          tag: 'TCC',
+          title: 'Proyecto de Fin de Carrera en Ciencias de la Computación',
+          topics: ['Criptografía', 'Proxy', 'TLS'],
+          status: 'in-progress',
+          locked: true
         },
         {
           slug: 'privacy-checklist',
@@ -630,16 +634,16 @@ export const messages: Record<Locale, SiteMessages> = {
           coverImage: '/covers/privacy-checklist.svg'
         },
         {
-          slug: 'log-watch',
+          slug: 'proximo-proyecto',
           index: '03',
-          tag: 'tool',
-          title: 'Log watch',
+          tag: '...',
+          title: 'Próximo proyecto',
           impact: {
-            problem: 'la revisión manual de logs retrasaba la identificación de comportamientos sospechosos.',
-            result: 'un script detecta patrones sospechosos en tiempo real y reduce el tiempo de respuesta.'
+            problem: '',
+            result: 'Un nuevo proyecto será presentado aquí próximamente.'
           },
-          publishedAt: '2026-07-24',
-          status: 'in-progress'
+          status: 'in-progress',
+          placeholder: true
         }
       ]
     },

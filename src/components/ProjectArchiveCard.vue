@@ -16,18 +16,39 @@ const props = withDefaults(
 )
 
 const { locale, copy } = useLocale()
-const statusLabel = computed(() =>
-  props.project.status === 'live'
+const statusLabel = computed(() => {
+  if (props.project.placeholder) {
+    return copy.value.projects.placeholderLabel
+  }
+
+  return props.project.status === 'live'
     ? copy.value.projects.liveLabel
     : copy.value.projects.inProgressLabel
-)
+})
 </script>
 
 <template>
-  <article
+  <component
+    :is="project.locked ? 'button' : 'article'"
     class="archive-card"
-    :class="{ 'archive-card--featured': featured }"
+    :class="{
+      'archive-card--featured': featured,
+      'archive-card--locked': project.locked,
+      'archive-card--placeholder': project.placeholder
+    }"
+    :type="project.locked ? 'button' : undefined"
+    :aria-label="
+      project.locked
+        ? `${project.title}. ${statusLabel}. ${copy.projects.comingSoon}.`
+        : undefined
+    "
   >
+    <span v-if="project.locked" class="archive-lock" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false">
+        <path d="M7 10V8a5 5 0 0 1 10 0v2m-9 0h8a2 2 0 0 1 2 2v7H6v-7a2 2 0 0 1 2-2Z" />
+      </svg>
+    </span>
+
     <div class="archive-visual" aria-hidden="true">
       <img
         v-if="project.coverImage"
@@ -37,11 +58,19 @@ const statusLabel = computed(() =>
         decoding="async"
       />
 
-      <div v-else class="archive-fallback">
-        <span class="log-line log-line--one"></span>
-        <span class="log-line log-line--two"></span>
-        <span class="log-line log-line--three"></span>
-        <span class="log-pulse"></span>
+      <div
+        v-else
+        class="archive-fallback"
+        :class="{ 'archive-fallback--placeholder': project.placeholder }"
+      >
+        <span v-if="project.placeholder" class="archive-placeholder-mark">•••</span>
+
+        <template v-else>
+          <span class="log-line log-line--one"></span>
+          <span class="log-line log-line--two"></span>
+          <span class="log-line log-line--three"></span>
+          <span class="log-pulse"></span>
+        </template>
       </div>
     </div>
 
@@ -57,7 +86,13 @@ const statusLabel = computed(() =>
 
       <h2 class="archive-title">{{ project.title }}</h2>
 
-      <div v-if="featured" class="archive-impact">
+      <ul v-if="project.topics" class="archive-topics">
+        <li v-for="topic in project.topics" :key="topic" class="archive-topic">
+          {{ topic }}
+        </li>
+      </ul>
+
+      <div v-else-if="featured && project.impact" class="archive-impact">
         <p>
           <strong>{{ copy.projects.problemLabel }}:</strong>
           {{ project.impact.problem }}
@@ -68,18 +103,18 @@ const statusLabel = computed(() =>
         </p>
       </div>
 
-      <p v-else class="archive-summary">
+      <p v-else-if="project.impact" class="archive-summary">
         {{ project.impact.result }}
       </p>
 
       <div class="archive-footer">
-        <time :datetime="project.publishedAt" class="archive-date">
+        <time v-if="project.publishedAt" :datetime="project.publishedAt" class="archive-date">
           {{ formatShortDate(project.publishedAt, locale) }}
         </time>
 
         <div class="archive-actions">
           <a
-            v-if="project.repoUrl"
+            v-if="project.repoUrl && !project.locked"
             :href="project.repoUrl"
             target="_blank"
             rel="noopener noreferrer"
@@ -90,7 +125,7 @@ const statusLabel = computed(() =>
           </a>
 
           <a
-            v-if="project.demoUrl"
+            v-if="project.demoUrl && !project.locked"
             :href="project.demoUrl"
             target="_blank"
             rel="noopener noreferrer"
@@ -101,7 +136,7 @@ const statusLabel = computed(() =>
           </a>
 
           <span
-            v-if="!project.repoUrl && !project.demoUrl"
+            v-if="project.locked || (!project.repoUrl && !project.demoUrl)"
             class="archive-action archive-action--disabled"
             aria-disabled="true"
           >
@@ -110,19 +145,25 @@ const statusLabel = computed(() =>
         </div>
       </div>
     </div>
-  </article>
+  </component>
 </template>
 
 <style scoped>
 .archive-card {
+  position: relative;
+  width: 100%;
   min-width: 0;
   overflow: hidden;
   display: grid;
   grid-template-columns: 220px minmax(0, 1fr);
   min-height: 170px;
+  padding: 0;
+  color: inherit;
   background: var(--surface);
   border: 0.5px solid var(--border);
   border-radius: 20px;
+  font: inherit;
+  text-align: left;
   transition:
     border-color 0.2s ease,
     transform 0.2s ease,
@@ -133,6 +174,64 @@ const statusLabel = computed(() =>
   transform: translateY(-2px);
   border-color: var(--border-strong);
   box-shadow: 0 18px 44px rgb(20 28 23 / 7%);
+}
+
+.archive-card--placeholder {
+  background: transparent;
+  border-style: dashed;
+}
+
+.archive-card--placeholder:hover {
+  transform: none;
+  border-color: var(--border-strong);
+  box-shadow: none;
+}
+
+.archive-card--placeholder .archive-title {
+  color: var(--text-secondary);
+}
+
+.archive-card--placeholder .archive-visual {
+  background: transparent;
+}
+
+.archive-card--locked {
+  cursor: pointer;
+}
+
+.archive-card--locked:active {
+  animation: locked-project-shake 0.36s ease-in-out;
+}
+
+.archive-card--locked:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 4px;
+}
+
+.archive-lock {
+  position: absolute;
+  z-index: 2;
+  top: 18px;
+  right: 18px;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  color: var(--signal-text);
+  background: var(--surface);
+  border: 0.5px solid var(--border-strong);
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgb(20 28 23 / 8%);
+}
+
+.archive-lock svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentcolor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
 }
 
 .archive-card--featured {
@@ -164,6 +263,24 @@ const statusLabel = computed(() =>
     linear-gradient(90deg, rgb(255 255 255 / 3%) 1px, transparent 1px),
     #101821;
   background-size: 22px 22px;
+}
+
+.archive-fallback--placeholder {
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(color-mix(in srgb, var(--border) 20%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--border) 20%, transparent) 1px, transparent 1px),
+    transparent;
+  background-size: 22px 22px;
+  border-right: 0.5px dashed var(--border);
+}
+
+.archive-placeholder-mark {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 20px;
+  letter-spacing: 0.18em;
 }
 
 .log-line {
@@ -274,6 +391,27 @@ const statusLabel = computed(() =>
   line-height: 1.6;
 }
 
+.archive-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 720px;
+  margin: 16px 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.archive-topic {
+  padding: 6px 12px;
+  color: var(--text-secondary);
+  background: var(--surface);
+  border: 0.5px solid var(--border-strong);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.2;
+}
+
 .archive-footer {
   width: 100%;
   display: flex;
@@ -336,6 +474,25 @@ const statusLabel = computed(() =>
   opacity: 0.55;
 }
 
+@keyframes locked-project-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-4px) rotate(-0.2deg);
+  }
+
+  50% {
+    transform: translateX(4px) rotate(0.2deg);
+  }
+
+  75% {
+    transform: translateX(-2px);
+  }
+}
+
 @media (max-width: 760px) {
   .archive-card,
   .archive-card--featured {
@@ -372,6 +529,10 @@ const statusLabel = computed(() =>
   .archive-card,
   .archive-action {
     transition: none;
+  }
+
+  .archive-card--locked:active {
+    animation: none;
   }
 }
 </style>

@@ -8,6 +8,7 @@ export interface SocialLink {
   href: string
   glyph: string
   primary?: boolean
+  download?: string
 }
 
 
@@ -51,10 +52,13 @@ export interface Project {
   index: string
   tag: string
   title: string
-  impact: ProjectImpact
-  publishedAt: string
+  impact?: ProjectImpact
+  topics?: string[]
+  publishedAt?: string
   repoUrl?: string
   demoUrl?: string
   status: ProjectStatus
   coverImage?: string
+  locked?: boolean
+  placeholder?: boolean
 }

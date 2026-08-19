@@ -37,8 +37,9 @@ const { copy } = useLocale()
         v-for="link in copy.profile.socialLinks"
         :key="link.label"
         :href="link.href"
-        target="_blank"
-        rel="noopener noreferrer"
+        :download="link.download || undefined"
+        :target="link.download ? undefined : '_blank'"
+        :rel="link.download ? undefined : 'noopener noreferrer'"
         class="link-btn"
         :class="{ 'link-btn--primary': link.primary }"
       >

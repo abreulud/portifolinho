@@ -16,13 +16,41 @@ const props = withDefaults(
 
 const { copy } = useLocale()
 const isCompact = computed(() => props.variant === 'compact')
+const statusLabel = computed(() => {
+  if (props.project.placeholder) {
+    return copy.value.projects.placeholderLabel
+  }
+
+  return props.project.status === 'live'
+    ? copy.value.projects.liveLabel
+    : copy.value.projects.inProgressLabel
+})
 </script>
 
 <template>
-  <article
+  <component
+    :is="project.locked ? 'button' : 'article'"
     class="project-card"
-    :class="`project-card--${variant}`"
+    :class="[
+      `project-card--${variant}`,
+      {
+        'project-card--locked': project.locked,
+        'project-card--placeholder': project.placeholder
+      }
+    ]"
+    :type="project.locked ? 'button' : undefined"
+    :aria-label="
+      project.locked
+        ? `${project.title}. ${statusLabel}. ${copy.projects.comingSoon}.`
+        : undefined
+    "
   >
+    <span v-if="project.locked" class="project-lock" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false">
+        <path d="M7 10V8a5 5 0 0 1 10 0v2m-9 0h8a2 2 0 0 1 2 2v7H6v-7a2 2 0 0 1 2-2Z" />
+      </svg>
+    </span>
+
     <div class="project-cover" aria-hidden="true">
       <img
         v-if="project.coverImage"
@@ -32,23 +60,46 @@ const isCompact = computed(() => props.variant === 'compact')
         decoding="async"
       />
 
-      <div v-else class="project-cover-fallback">
-        <span class="fallback-line fallback-line--one"></span>
-        <span class="fallback-line fallback-line--two"></span>
-        <span class="fallback-line fallback-line--three"></span>
-        <span class="fallback-alert"></span>
+      <div
+        v-else
+        class="project-cover-fallback"
+        :class="{ 'project-cover-fallback--placeholder': project.placeholder }"
+      >
+        <span v-if="project.placeholder" class="project-placeholder-mark">•••</span>
+
+        <template v-else>
+          <span class="fallback-line fallback-line--one"></span>
+          <span class="fallback-line fallback-line--two"></span>
+          <span class="fallback-line fallback-line--three"></span>
+          <span class="fallback-alert"></span>
+        </template>
       </div>
     </div>
 
     <div class="project-body">
-      <p class="project-tag">{{ project.index }} / {{ project.tag.toUpperCase() }}</p>
+      <div class="project-meta">
+        <p class="project-tag">{{ project.index }} / {{ project.tag.toUpperCase() }}</p>
+        <span
+          v-if="project.status === 'in-progress' && !project.placeholder"
+          class="project-status"
+        >
+          {{ statusLabel }}
+        </span>
+      </div>
+
       <h3 class="project-title">{{ project.title }}</h3>
 
-      <p v-if="isCompact" class="project-summary">
+      <ul v-if="project.topics" class="project-topics">
+        <li v-for="topic in project.topics" :key="topic" class="project-topic">
+          {{ topic }}
+        </li>
+      </ul>
+
+      <p v-else-if="isCompact && project.impact" class="project-summary">
         {{ project.impact.result }}
       </p>
 
-      <p v-else class="project-impact">
+      <p v-else-if="project.impact" class="project-impact">
         <span>
           <strong>{{ copy.projects.problemLabel }}:</strong>
           {{ project.impact.problem }}
@@ -61,7 +112,7 @@ const isCompact = computed(() => props.variant === 'compact')
 
       <div v-if="!isCompact" class="project-actions">
         <a
-          v-if="project.repoUrl"
+          v-if="project.repoUrl && !project.locked"
           :href="project.repoUrl"
           target="_blank"
           rel="noopener noreferrer"
@@ -72,7 +123,7 @@ const isCompact = computed(() => props.variant === 'compact')
         </a>
 
         <a
-          v-if="project.demoUrl"
+          v-if="project.demoUrl && !project.locked"
           :href="project.demoUrl"
           target="_blank"
           rel="noopener noreferrer"
@@ -83,7 +134,7 @@ const isCompact = computed(() => props.variant === 'compact')
         </a>
 
         <span
-          v-else
+          v-if="project.locked || !project.demoUrl"
           class="action-btn action-btn--disabled"
           aria-disabled="true"
         >
@@ -92,17 +143,23 @@ const isCompact = computed(() => props.variant === 'compact')
         </span>
       </div>
     </div>
-  </article>
+  </component>
 </template>
 
 <style scoped>
 .project-card {
+  position: relative;
+  width: 100%;
   min-width: 0;
   overflow: hidden;
   display: grid;
+  padding: 0;
+  color: inherit;
   background: var(--surface);
   border: 0.5px solid var(--border);
   border-radius: 20px;
+  font: inherit;
+  text-align: left;
   transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -110,6 +167,64 @@ const isCompact = computed(() => props.variant === 'compact')
   border-color: var(--border-strong);
   transform: translateY(-2px);
   box-shadow: 0 18px 44px rgb(20 28 23 / 7%);
+}
+
+.project-card--placeholder {
+  background: transparent;
+  border-style: dashed;
+}
+
+.project-card--placeholder:hover {
+  transform: none;
+  border-color: var(--border-strong);
+  box-shadow: none;
+}
+
+.project-card--placeholder .project-title {
+  color: var(--text-secondary);
+}
+
+.project-card--placeholder .project-cover {
+  background: transparent;
+}
+
+.project-card--locked {
+  cursor: pointer;
+}
+
+.project-card--locked:active {
+  animation: locked-project-shake 0.36s ease-in-out;
+}
+
+.project-card--locked:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 4px;
+}
+
+.project-lock {
+  position: absolute;
+  z-index: 2;
+  top: 16px;
+  right: 16px;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  color: var(--signal-text);
+  background: var(--surface);
+  border: 0.5px solid var(--border-strong);
+  border-radius: 7px;
+  box-shadow: 0 6px 18px rgb(20 28 23 / 8%);
+}
+
+.project-lock svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentcolor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
 }
 
 .project-card--featured {
@@ -151,6 +266,24 @@ const isCompact = computed(() => props.variant === 'compact')
     linear-gradient(90deg, rgb(255 255 255 / 3%) 1px, transparent 1px),
     #111820;
   background-size: 18px 18px;
+}
+
+.project-cover-fallback--placeholder {
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(color-mix(in srgb, var(--border) 20%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--border) 20%, transparent) 1px, transparent 1px),
+    transparent;
+  background-size: 18px 18px;
+  border-right: 0.5px dashed var(--border);
+}
+
+.project-placeholder-mark {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 18px;
+  letter-spacing: 0.18em;
 }
 
 .fallback-line {
@@ -202,8 +335,16 @@ const isCompact = computed(() => props.variant === 'compact')
   padding: 18px 20px;
 }
 
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
 .project-tag {
-  margin: 0 0 10px;
+  margin: 0;
   color: var(--signal-text);
   font-family: var(--font-mono);
   font-size: 10px;
@@ -211,9 +352,22 @@ const isCompact = computed(() => props.variant === 'compact')
   letter-spacing: 0.04em;
 }
 
-.project-card--compact .project-tag {
+.project-card--compact .project-meta {
   margin-bottom: 6px;
+}
+
+.project-card--compact .project-tag {
   font-size: 9px;
+}
+
+.project-status {
+  padding: 3px 7px;
+  color: var(--signal-text);
+  background: var(--signal-soft);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 1.2;
 }
 
 .project-title {
@@ -255,6 +409,26 @@ const isCompact = computed(() => props.variant === 'compact')
   line-height: 1.45;
 }
 
+.project-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.project-topic {
+  padding: 6px 12px;
+  color: var(--text-secondary);
+  background: var(--surface);
+  border: 0.5px solid var(--border-strong);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.2;
+}
+
 .project-actions {
   display: flex;
   flex-wrap: wrap;
@@ -280,6 +454,25 @@ const isCompact = computed(() => props.variant === 'compact')
 
 a.action-btn:hover {
   border-color: var(--signal);
+}
+
+@keyframes locked-project-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-4px) rotate(-0.2deg);
+  }
+
+  50% {
+    transform: translateX(4px) rotate(0.2deg);
+  }
+
+  75% {
+    transform: translateX(-2px);
+  }
 }
 
 .action-btn:focus-visible {
@@ -359,6 +552,10 @@ a.action-btn:hover {
 @media (prefers-reduced-motion: reduce) {
   .project-card {
     transition: none;
+  }
+
+  .project-card--locked:active {
+    animation: none;
   }
 }
 </style>

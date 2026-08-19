@@ -8,7 +8,7 @@ import { useLocale } from '@/composables/useLocale'
 const { copy } = useLocale()
 const orderedProjects = computed(() =>
   [...copy.value.projects.items].sort((firstProject, secondProject) =>
-    secondProject.publishedAt.localeCompare(firstProject.publishedAt)
+    firstProject.index.localeCompare(secondProject.index)
   )
 )
 </script>
