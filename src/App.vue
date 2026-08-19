@@ -16,6 +16,7 @@ import SiteFooter from '@/components/SiteFooter.vue'
 <style scoped>
 .app-background {
   min-height: 100vh;
+  overflow-x: clip;
 }
 
 .page {

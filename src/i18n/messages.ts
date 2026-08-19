@@ -7,7 +7,7 @@ import type {
   ToolboxColumn
 } from '@/types/content'
 
-export type Locale = 'pt' | 'en' | 'es'
+export type Locale = 'pt' | 'en'
 export type NavigationKey = 'home' | 'experience' | 'projects' | 'blog'
 
 export interface SiteMessages {
@@ -30,7 +30,6 @@ export interface SiteMessages {
     availability: string
     stats: ProfileStat[]
     socialLinks: SocialLink[]
-
   }
   posts: {
     eyebrow: string
@@ -40,6 +39,9 @@ export interface SiteMessages {
     viewAllPosts: string
     archiveTitle: string
     archiveIntro: string
+    inProgressLabel: string
+    placeholderLabel: string
+    comingSoon: string
     items: Post[]
   }
   experience: {
@@ -61,11 +63,14 @@ export interface SiteMessages {
     newLabel: string
     liveLabel: string
     inProgressLabel: string
-    placeholderLabel: string
     problemLabel: string
     resultLabel: string
     sourceCode: string
     viewDemo: string
+    viewProject: string
+    backToProjects: string
+    notFoundTitle: string
+    notFoundText: string
     comingSoon: string
     viewAllProjects: string
     items: Project[]
@@ -77,18 +82,16 @@ export interface SiteMessages {
   }
 }
 
-export const availableLocales: Locale[] = ['pt', 'en', 'es']
+export const availableLocales: Locale[] = ['pt', 'en']
 
 export const localeNames: Record<Locale, string> = {
   pt: 'Português',
-  en: 'English',
-  es: 'Español'
+  en: 'English'
 }
 
 export const localeCodes: Record<Locale, string> = {
   pt: 'pt-BR',
-  en: 'en-US',
-  es: 'es-ES'
+  en: 'en-US'
 }
 
 export const navigationItems: { key: NavigationKey; path: string }[] = [
@@ -139,7 +142,7 @@ export const messages: Record<Locale, SiteMessages> = {
         },
         { label: 'linkedin', href: 'https://linkedin.com/in/ludmilla-abreu', glyph: '↗' },
         { label: 'github', href: 'https://github.com/abreulud', glyph: '⌘' }
-      ],
+      ]
     },
     posts: {
       eyebrow: '~/blog',
@@ -150,24 +153,24 @@ export const messages: Record<Locale, SiteMessages> = {
       archiveTitle: 'Minhas publicações',
       archiveIntro:
         'Pesquisas, artigos e write-ups sobre segurança e desenvolvimento.',
+      inProgressLabel: 'em andamento',
+      placeholderLabel: 'em breve',
+      comingSoon: 'Em breve',
       items: [
         {
-          slug: 'do-reconhecimento-ao-root',
-          title: 'Do reconhecimento ao root: anatomia de um laboratório Linux',
+          slug: 'oceansec-osint',
+          title: 'OceanSec: Atividade de Coleta de Informações (OSINT)',
           excerpt:
-            'Uma análise do processo, das hipóteses que falharam e das decisões que levaram à exploração.',
-          category: 'ctf',
-          publishedAt: '2026-07-21',
-          readingTimeMinutes: 12,
-          featured: true
+            'Uma análise OSINT de uma empresa fictícia de serviços de cibersegurança, com o mapeamento de documentos sensíveis, repositórios, ativos e sistemas internos da organização.',
+          category: 'writeup',
+          locked: true
         },
         {
-          slug: 'recon-map',
-          title: 'Recon map',
-          excerpt: 'automação · python · osint',
-          category: 'write-up',
-          publishedAt: '2026-07-10',
-          readingTimeMinutes: 6
+          slug: 'proxima-publicacao',
+          title: 'Próxima publicação',
+          excerpt: 'Este espaço será preenchido com um novo conteúdo em breve.',
+          category: 'learning',
+          placeholder: true
         }
       ]
     },
@@ -229,15 +232,18 @@ export const messages: Record<Locale, SiteMessages> = {
       pageEyebrow: '~/projetos',
       pageTitle: 'Minhas construções',
       pageIntro:
-        'Ferramentas e experimentos em segurança, automação e privacidade, documentados do problema ao resultado.',
+        'Projetos acadêmicos e experiências digitais documentados do problema às decisões de implementação.',
       newLabel: 'Novo!',
       liveLabel: 'disponível',
       inProgressLabel: 'em andamento',
-      placeholderLabel: 'em breve',
       problemLabel: 'Problema',
       resultLabel: 'Resultado',
       sourceCode: 'código-fonte',
       viewDemo: 'ver demo',
+      viewProject: 'ver projeto',
+      backToProjects: 'voltar aos projetos',
+      notFoundTitle: 'Projeto não encontrado',
+      notFoundText: 'Este projeto não existe ou ainda não possui uma página publicada.',
       comingSoon: 'Em breve',
       viewAllProjects: 'ver todos os projetos',
       items: [
@@ -251,31 +257,42 @@ export const messages: Record<Locale, SiteMessages> = {
           locked: true
         },
         {
-          slug: 'privacy-checklist',
+          slug: 'modelagem-computacional',
           index: '02',
-          tag: 'lab',
-          title: 'Privacy checklist',
+          tag: 'machine learning',
+          title: 'Modelagem computacional do consumo de energia',
           impact: {
-            problem: 'guias de privacidade existentes usavam linguagem alarmista.',
-            result: 'um checklist gradual teve mais de 240 acessos orgânicos no primeiro mês.'
+            problem: 'identificar perfis semelhantes de consumo e perdas em uma base sem rótulos.',
+            result:
+              'O objetivo deste projeto é agrupar bairros e regiões de Salvador conforme seus perfis de consumo de energia elétrica, permitindo monitorar quais áreas da cidade apresentam maior consumo.'
           },
-          publishedAt: '2026-07-16',
-          repoUrl: 'https://github.com/ludmilla/privacy-checklist',
-          demoUrl: 'https://privacy-checklist.ludmilla.dev',
+          publishedAt: '2026-06-17',
+          repoUrl: 'https://github.com/abreulud/ModelagemComputacional',
           status: 'live',
-          coverImage: '/covers/privacy-checklist.svg'
+          coverImage: '/project-media/modelagem-computacional/capa-grafico-linha.png',
+          coverAlt: 'Gráfico de linha ascendente que representa uma evolução simulada do consumo de energia.',
+          coverZoom: true,
+          detailImage: '/project-media/modelagem-computacional/grafico-clusters.png',
+          detailImageAlt:
+            'Gráfico de dispersão dos bairros de Salvador agrupados por perfil de consumo de energia.',
+          hasDetails: true
         },
         {
-          slug: 'proximo-projeto',
+          slug: 'guitar-desktop',
           index: '03',
-          tag: '...',
-          title: 'Próximo projeto',
+          tag: 'experiência web',
+          title: 'Guitar Desktop',
           impact: {
-            problem: '',
-            result: 'Um novo projeto será apresentado aqui em breve.'
+            problem: 'gravar guitarra exigia alternar entre câmera, backing tracks e referências.',
+            result:
+              'Este projeto é um desktop retrô inspirado no Windows XP e nas interfaces dos anos 2000. Ele serve como cenário interativo para fazer anotações de músicas, gravar performances e reproduzir backing tracks.'
           },
-          status: 'in-progress',
-          placeholder: true
+          publishedAt: '2026-08-14',
+          repoUrl: 'https://github.com/abreulud/guitar_desktop',
+          status: 'live',
+          coverImage: '/project-media/guitar-desktop/desktop.png',
+          coverAlt: 'Guitar Desktop com webcam, player, anotações, arquivos e cifras abertas.',
+          hasDetails: true
         }
       ]
     },
@@ -323,7 +340,7 @@ export const messages: Record<Locale, SiteMessages> = {
         },
         { label: 'linkedin', href: 'https://linkedin.com/in/ludmilla-abreu', glyph: '↗' },
         { label: 'github', href: 'https://github.com/abreulud', glyph: '⌘' }
-      ],
+      ]
     },
     posts: {
       eyebrow: '~/blog',
@@ -334,24 +351,24 @@ export const messages: Record<Locale, SiteMessages> = {
       archiveTitle: 'All posts',
       archiveIntro:
         'Technical notes, research and write-ups on security, development and continuous learning.',
+      inProgressLabel: 'in progress',
+      placeholderLabel: 'coming soon',
+      comingSoon: 'Coming soon',
       items: [
         {
-          slug: 'do-reconhecimento-ao-root',
-          title: 'From reconnaissance to root: anatomy of a Linux lab',
+          slug: 'oceansec-osint',
+          title: 'OceanSec: Information Gathering Activity (OSINT)',
           excerpt:
-            'An analysis of the process, the hypotheses that failed, and the decisions that led to exploitation.',
-          category: 'ctf',
-          publishedAt: '2026-07-21',
-          readingTimeMinutes: 12,
-          featured: true
+            'An OSINT analysis of a fictional cybersecurity services company, mapping sensitive documents, repositories, assets and internal systems.',
+          category: 'writeup',
+          locked: true
         },
         {
-          slug: 'recon-map',
-          title: 'Recon map',
-          excerpt: 'automation · python · osint',
-          category: 'write-up',
-          publishedAt: '2026-07-10',
-          readingTimeMinutes: 6
+          slug: 'next-publication',
+          title: 'Next publication',
+          excerpt: 'This space will be filled with new content soon.',
+          category: 'learning',
+          placeholder: true
         }
       ]
     },
@@ -413,15 +430,18 @@ export const messages: Record<Locale, SiteMessages> = {
       pageEyebrow: '~/projects',
       pageTitle: 'My Builds',
       pageIntro:
-        'Tools and experiments in security, automation and privacy, documented from problem to outcome.',
+        'Academic projects and digital experiences documented from the problem to implementation decisions.',
       newLabel: 'New!',
       liveLabel: 'available',
       inProgressLabel: 'in progress',
-      placeholderLabel: 'coming soon',
       problemLabel: 'Problem',
       resultLabel: 'Result',
       sourceCode: 'source code',
       viewDemo: 'view demo',
+      viewProject: 'view project',
+      backToProjects: 'back to projects',
+      notFoundTitle: 'Project not found',
+      notFoundText: 'This project does not exist or does not have a published page yet.',
       comingSoon: 'Coming soon',
       viewAllProjects: 'view all projects',
       items: [
@@ -435,31 +455,42 @@ export const messages: Record<Locale, SiteMessages> = {
           locked: true
         },
         {
-          slug: 'privacy-checklist',
+          slug: 'modelagem-computacional',
           index: '02',
-          tag: 'lab',
-          title: 'Privacy checklist',
+          tag: 'machine learning',
+          title: 'Computational modeling of energy consumption',
           impact: {
-            problem: 'existing privacy guides relied on alarmist language.',
-            result: 'a gradual checklist reached over 240 organic visits in its first month.'
+            problem: 'identify similar consumption and loss profiles in an unlabeled dataset.',
+            result:
+              'The goal of this project is to group neighborhoods and regions of Salvador by their electricity consumption profiles, making it possible to monitor which areas of the city consume the most energy.'
           },
-          publishedAt: '2026-07-16',
-          repoUrl: 'https://github.com/ludmilla/privacy-checklist',
-          demoUrl: 'https://privacy-checklist.ludmilla.dev',
+          publishedAt: '2026-06-17',
+          repoUrl: 'https://github.com/abreulud/ModelagemComputacional',
           status: 'live',
-          coverImage: '/covers/privacy-checklist.svg'
+          coverImage: '/project-media/modelagem-computacional/capa-grafico-linha.png',
+          coverAlt: 'Upward line chart representing a simulated evolution in energy consumption.',
+          coverZoom: true,
+          detailImage: '/project-media/modelagem-computacional/grafico-clusters.png',
+          detailImageAlt:
+            'Scatter plot of Salvador neighborhoods grouped by energy consumption profile.',
+          hasDetails: true
         },
         {
-          slug: 'next-project',
+          slug: 'guitar-desktop',
           index: '03',
-          tag: '...',
-          title: 'Next project',
+          tag: 'web experience',
+          title: 'Guitar Desktop',
           impact: {
-            problem: '',
-            result: 'A new project will be presented here soon.'
+            problem: 'recording guitar required switching between camera, backing tracks and references.',
+            result:
+              'This project is a retro desktop inspired by Windows XP and 2000s-era interfaces. It serves as an interactive setting for taking song notes, recording performances and playing backing tracks.'
           },
-          status: 'in-progress',
-          placeholder: true
+          publishedAt: '2026-08-14',
+          repoUrl: 'https://github.com/abreulud/guitar_desktop',
+          status: 'live',
+          coverImage: '/project-media/guitar-desktop/desktop.png',
+          coverAlt: 'Guitar Desktop with webcam, player, notes, files and guitar tabs open.',
+          hasDetails: true
         }
       ]
     },
@@ -467,190 +498,6 @@ export const messages: Record<Locale, SiteMessages> = {
       createdBy: 'Created by Ludmilla A.',
       location: 'Salvador, Brazil',
       availability: 'available for new projects'
-    }
-  },
-  es: {
-    navigation: {
-      home: 'inicio',
-      experience: 'experiencia',
-      projects: 'proyectos',
-      blog: 'blog'
-    },
-    accessibility: {
-      mainNavigation: 'Navegación principal',
-      languageSelector: 'Seleccionar idioma',
-      switchToLightTheme: 'Cambiar al tema claro',
-      switchToDarkTheme: 'Cambiar al tema oscuro',
-      techStack: 'Tecnologías principales',
-      activityIndicators: 'Indicadores de actividad',
-      profilePhoto: 'Foto de Ludmilla Abreu'
-    },
-    profile: {
-      cardLabel: 'perfil',
-      roleStart: 'Estudiante de Ciencias de la Computación enfocada en',
-      webSecurity: 'seguridad web',
-      roleConnector: 'y',
-      backendDevelopment: 'desarrollo back-end',
-      availability: 'disponible para proyectos y oportunidades',
-      stats: [
-        { value: '4', label: 'CTFs completados' },
-        { value: '0', label: 'write-ups publicados' },
-        { value: '2+', label: 'años de experiencia' }
-      ],
-      socialLinks: [
-        {
-          label: 'descargar currículum',
-          href: '/CV%20-%20Ludmilla%20Abreu%20%28Tecnologia%29.pdf',
-          glyph: '↓',
-          primary: true,
-          download: 'CV - Ludmilla Abreu (Tecnologia).pdf'
-        },
-        { label: 'linkedin', href: 'https://linkedin.com/in/ludmilla-abreu', glyph: '↗' },
-        { label: 'github', href: 'https://github.com/abreulud', glyph: '⌘' }
-      ],
-    },
-    posts: {
-      eyebrow: '~/blog',
-      sectionTitle: 'Publicaciones recientes',
-      featuredLabel: 'write-up destacado',
-      readArticle: 'leer artículo',
-      viewAllPosts: 'ver todas las publicaciones',
-      archiveTitle: 'Todas las publicaciones',
-      archiveIntro:
-        'Notas técnicas, investigaciones y write-ups sobre seguridad, desarrollo y aprendizaje continuo.',
-      items: [
-        {
-          slug: 'do-reconhecimento-ao-root',
-          title: 'Del reconocimiento al root: anatomía de un laboratorio Linux',
-          excerpt:
-            'Un análisis del proceso, las hipótesis que fallaron y las decisiones que llevaron a la explotación.',
-          category: 'ctf',
-          publishedAt: '2026-07-21',
-          readingTimeMinutes: 12,
-          featured: true
-        },
-        {
-          slug: 'recon-map',
-          title: 'Recon map',
-          excerpt: 'automatización · python · osint',
-          category: 'write-up',
-          publishedAt: '2026-07-10',
-          readingTimeMinutes: 6
-        }
-      ]
-    },
-    experience: {
-      eyebrow: '~/experiencia',
-      pageTitle: 'Experiencia',
-      intro:
-        'Experiencias en tecnología, investigación y seguridad organizadas como un log: qué hice, qué aprendí y el impacto que tuvo.',
-      positionsLabel: 'posiciones',
-      ongoingLabel: 'en aprendizaje constante',
-      toolboxLabel: 'tecnologías y herramientas',
-      entries: [
-        {
-          slug: 'security-researcher',
-          period: 'Dic 2025 — actualidad · 8 meses',
-          company: 'QuIIN',
-          role: 'Investigadora de TI en Criptografía Cuántica',
-          description:
-            'Investigación sobre la integración de sistemas CV-QKD con redes clásicas, adaptando protocolos TLS y PKI para el consumo de claves criptográficas por hardware cuántico. Desarrollo de un proxy para probar APIs REST mediante HTTPS con certificados digitales poscuánticos, así como informes técnicos y documentación científica relacionados con el proyecto de investigación.',
-          skills: ['Go', 'Linux', 'TLS', 'PKI', 'REST API', 'Shell Script', 'VirtualBox']
-        },
-        {
-          slug: 'technology-and-data',
-          period: 'Dic 2024 — Dic 2025 · 1 año',
-          company: 'Sicoob',
-          role: 'Pasante de Tecnología',
-          description:
-            'Brindé soporte técnico a usuarios internos en cuestiones de hardware, software, accesos y sistemas. Participé en proyectos de migración de datos, automatización de procesos y documentación técnica.',
-          skills: ['SQL Server', 'ASP.NET', 'JavaScript', 'AnyDesk', 'EDR CrowdStrike']
-        },
-        {
-          slug: 'networks',
-          period: 'Abr 2024 — Dic 2024 · 9 meses',
-          company: 'Saltur',
-          role: 'Pasante de TI',
-          description:
-            'Trabajé con soporte de hardware, software y redes, incluyendo mantenimiento de switches y atención de solicitudes. También colaboré con sistemas internos y con la implementación de una aplicación gubernamental durante el Carnaval.',
-          skills: ['GLPI', 'C#', 'HTML/CSS', 'Redes', 'Active Directory']
-        },
-        {
-          slug: 'soporte-tecnico-unip',
-          period: 'Nov 2023 — Abr 2024 · 6 meses',
-          company: 'UNIP',
-          role: 'Pasante de TI',
-          description:
-            'Realicé el mantenimiento y formateo de computadoras y la instalación de sistemas operativos. Actualicé documentos en el sistema interno de la universidad y registré los datos biométricos de los estudiantes, además de apoyar las rutinas administrativas.',
-          skills: ['Hardware', 'Soporte Técnico', 'Administración']
-        }
-      ],
-      toolbox: [
-        { label: '~/Desarrollo', items: ['Python', 'Go', 'JavaScript', 'SQL', 'REST API'] },
-        { label: '~/Redes y Seguridad', items: ['TCP/IP · DNS', 'TLS/PKI', 'Wireshark', 'Nmap', 'Burp Suite', 'EDR/XDR'] },
-        { label: '~/Sistemas y Soporte', items: ['Linux', 'Windows', 'Docker', 'Grafana', 'Git/GitHub'] }
-      ]
-    },
-    projects: {
-      eyebrow: '~/proyectos',
-      sectionTitle: 'Mis proyectos',
-      pageEyebrow: '~/proyectos',
-      pageTitle: 'Mis Construcciones',
-      pageIntro:
-        'Herramientas y experimentos de seguridad, automatización y privacidad, documentados desde el problema hasta el resultado.',
-      newLabel: '¡Nuevo!',
-      liveLabel: 'disponible',
-      inProgressLabel: 'en curso',
-      placeholderLabel: 'próximamente',
-      problemLabel: 'Problema',
-      resultLabel: 'Resultado',
-      sourceCode: 'código fuente',
-      viewDemo: 'ver demo',
-      comingSoon: 'Próximamente',
-      viewAllProjects: 'ver todos los proyectos',
-      items: [
-        {
-          slug: 'proyecto-final-ciencias-computacion',
-          index: '01',
-          tag: 'TCC',
-          title: 'Proyecto de Fin de Carrera en Ciencias de la Computación',
-          topics: ['Criptografía', 'Proxy', 'TLS'],
-          status: 'in-progress',
-          locked: true
-        },
-        {
-          slug: 'privacy-checklist',
-          index: '02',
-          tag: 'lab',
-          title: 'Privacy checklist',
-          impact: {
-            problem: 'las guías de privacidad existentes utilizaban un lenguaje alarmista.',
-            result: 'una lista gradual superó las 240 visitas orgánicas durante el primer mes.'
-          },
-          publishedAt: '2026-07-16',
-          repoUrl: 'https://github.com/ludmilla/privacy-checklist',
-          demoUrl: 'https://privacy-checklist.ludmilla.dev',
-          status: 'live',
-          coverImage: '/covers/privacy-checklist.svg'
-        },
-        {
-          slug: 'proximo-proyecto',
-          index: '03',
-          tag: '...',
-          title: 'Próximo proyecto',
-          impact: {
-            problem: '',
-            result: 'Un nuevo proyecto será presentado aquí próximamente.'
-          },
-          status: 'in-progress',
-          placeholder: true
-        }
-      ]
-    },
-    footer: {
-      createdBy: 'Creado por Ludmilla A.',
-      location: 'Salvador, Brasil',
-      availability: 'disponible para nuevos proyectos'
     }
   }
 }

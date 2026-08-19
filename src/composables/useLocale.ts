@@ -3,7 +3,7 @@ import { computed, readonly, ref, watch } from 'vue'
 import { localeCodes, messages, type Locale } from '@/i18n/messages'
 
 const STORAGE_KEY = 'portfolio-locale'
-const SUPPORTED_LOCALES: Locale[] = ['pt', 'en', 'es']
+const SUPPORTED_LOCALES: Locale[] = ['pt', 'en']
 
 function isLocale(value: string | null): value is Locale {
   return SUPPORTED_LOCALES.includes(value as Locale)

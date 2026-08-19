@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { RouterLink } from 'vue-router'
 
 import { useLocale } from '@/composables/useLocale'
 import type { Project } from '@/types/content'
@@ -16,15 +17,11 @@ const props = withDefaults(
 )
 
 const { locale, copy } = useLocale()
-const statusLabel = computed(() => {
-  if (props.project.placeholder) {
-    return copy.value.projects.placeholderLabel
-  }
-
-  return props.project.status === 'live'
+const statusLabel = computed(() =>
+  props.project.status === 'live'
     ? copy.value.projects.liveLabel
     : copy.value.projects.inProgressLabel
-})
+)
 </script>
 
 <template>
@@ -33,8 +30,7 @@ const statusLabel = computed(() => {
     class="archive-card"
     :class="{
       'archive-card--featured': featured,
-      'archive-card--locked': project.locked,
-      'archive-card--placeholder': project.placeholder
+      'archive-card--locked': project.locked
     }"
     :type="project.locked ? 'button' : undefined"
     :aria-label="
@@ -53,24 +49,19 @@ const statusLabel = computed(() => {
       <img
         v-if="project.coverImage"
         :src="project.coverImage"
+        :class="{
+          'archive-cover-image--zoomed': project.coverZoom
+        }"
         alt=""
         loading="lazy"
         decoding="async"
       />
 
-      <div
-        v-else
-        class="archive-fallback"
-        :class="{ 'archive-fallback--placeholder': project.placeholder }"
-      >
-        <span v-if="project.placeholder" class="archive-placeholder-mark">•••</span>
-
-        <template v-else>
-          <span class="log-line log-line--one"></span>
-          <span class="log-line log-line--two"></span>
-          <span class="log-line log-line--three"></span>
-          <span class="log-pulse"></span>
-        </template>
+      <div v-else class="archive-fallback">
+        <span class="log-line log-line--one"></span>
+        <span class="log-line log-line--two"></span>
+        <span class="log-line log-line--three"></span>
+        <span class="log-pulse"></span>
       </div>
     </div>
 
@@ -124,6 +115,15 @@ const statusLabel = computed(() => {
             <span aria-hidden="true">↗</span>
           </a>
 
+          <RouterLink
+            v-if="project.hasDetails && !project.locked"
+            :to="`/projetos/${project.slug}`"
+            class="archive-action archive-action--primary"
+          >
+            {{ copy.projects.viewProject }}
+            <span aria-hidden="true">→</span>
+          </RouterLink>
+
           <a
             v-if="project.demoUrl && !project.locked"
             :href="project.demoUrl"
@@ -136,7 +136,10 @@ const statusLabel = computed(() => {
           </a>
 
           <span
-            v-if="project.locked || (!project.repoUrl && !project.demoUrl)"
+            v-if="
+              project.locked ||
+              (!project.hasDetails && !project.repoUrl && !project.demoUrl)
+            "
             class="archive-action archive-action--disabled"
             aria-disabled="true"
           >
@@ -174,25 +177,6 @@ const statusLabel = computed(() => {
   transform: translateY(-2px);
   border-color: var(--border-strong);
   box-shadow: 0 18px 44px rgb(20 28 23 / 7%);
-}
-
-.archive-card--placeholder {
-  background: transparent;
-  border-style: dashed;
-}
-
-.archive-card--placeholder:hover {
-  transform: none;
-  border-color: var(--border-strong);
-  box-shadow: none;
-}
-
-.archive-card--placeholder .archive-title {
-  color: var(--text-secondary);
-}
-
-.archive-card--placeholder .archive-visual {
-  background: transparent;
 }
 
 .archive-card--locked {
@@ -253,6 +237,12 @@ const statusLabel = computed(() => {
   object-fit: cover;
 }
 
+.archive-cover-image--zoomed {
+  object-position: 54% 48%;
+  transform: scale(1.36);
+  transform-origin: 56% 48%;
+}
+
 .archive-fallback {
   position: relative;
   width: 100%;
@@ -263,24 +253,6 @@ const statusLabel = computed(() => {
     linear-gradient(90deg, rgb(255 255 255 / 3%) 1px, transparent 1px),
     #101821;
   background-size: 22px 22px;
-}
-
-.archive-fallback--placeholder {
-  display: grid;
-  place-items: center;
-  background:
-    linear-gradient(color-mix(in srgb, var(--border) 20%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--border) 20%, transparent) 1px, transparent 1px),
-    transparent;
-  background-size: 22px 22px;
-  border-right: 0.5px dashed var(--border);
-}
-
-.archive-placeholder-mark {
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 20px;
-  letter-spacing: 0.18em;
 }
 
 .log-line {

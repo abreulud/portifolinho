@@ -13,17 +13,49 @@ const props = defineProps<{
 }>()
 
 const { locale, copy } = useLocale()
-const cardComponent = computed(() => (props.linkTo ? RouterLink : 'div'))
-const cardBindings = computed(() => (props.linkTo ? { to: props.linkTo } : {}))
+const hasLink = computed(
+  () => Boolean(props.linkTo && !props.post.locked && !props.post.placeholder)
+)
+const cardComponent = computed(() => {
+  if (props.post.locked) return 'button'
+  return hasLink.value ? RouterLink : 'div'
+})
+const cardBindings = computed(() => {
+  if (props.post.locked) {
+    return {
+      type: 'button',
+      'aria-label': `${props.post.title}. ${copy.value.posts.inProgressLabel}. ${copy.value.posts.comingSoon}.`
+    }
+  }
+
+  return hasLink.value ? { to: props.linkTo } : {}
+})
 </script>
 
 <template>
-  <article :id="`publication-${post.slug}`" class="publication-card">
+  <article
+    :id="`publication-${post.slug}`"
+    class="publication-card"
+    :class="{
+      'publication-card--locked': post.locked,
+      'publication-card--placeholder': post.placeholder
+    }"
+  >
+    <span v-if="post.locked" class="publication-lock" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false">
+        <path d="M7 10V8a5 5 0 0 1 10 0v2m-9 0h8a2 2 0 0 1 2 2v7H6v-7a2 2 0 0 1 2-2Z" />
+      </svg>
+    </span>
+
     <component
       :is="cardComponent"
       v-bind="cardBindings"
       class="publication-link"
-      :class="{ 'publication-link--static': !linkTo }"
+      :class="{
+        'publication-link--static': !hasLink,
+        'publication-link--locked': post.locked,
+        'publication-link--placeholder': post.placeholder
+      }"
     >
       <span class="publication-index" aria-hidden="true">
         {{ String(index + 1).padStart(2, '0') }}
@@ -31,8 +63,11 @@ const cardBindings = computed(() => (props.linkTo ? { to: props.linkTo } : {}))
 
       <div class="publication-content">
         <div class="publication-meta">
-          <span>{{ post.category }}</span>
-          <span v-if="post.featured" class="publication-featured">
+          <span>{{ post.placeholder ? copy.posts.placeholderLabel : post.category }}</span>
+          <span v-if="post.locked" class="publication-featured">
+            {{ copy.posts.inProgressLabel }}
+          </span>
+          <span v-else-if="post.featured" class="publication-featured">
             {{ copy.posts.featuredLabel }}
           </span>
         </div>
@@ -40,17 +75,27 @@ const cardBindings = computed(() => (props.linkTo ? { to: props.linkTo } : {}))
         <h3 class="publication-title">{{ post.title }}</h3>
         <p class="publication-excerpt">{{ post.excerpt }}</p>
 
-        <div class="publication-footer">
-          <time :datetime="post.publishedAt">
+        <div v-if="post.locked" class="publication-footer">
+          <span>{{ copy.posts.comingSoon }}</span>
+        </div>
+
+        <div
+          v-else-if="post.publishedAt || post.readingTimeMinutes"
+          class="publication-footer"
+        >
+          <time v-if="post.publishedAt" :datetime="post.publishedAt">
             {{ formatShortDate(post.publishedAt, locale) }}
           </time>
-          <span aria-hidden="true">·</span>
-          <span>{{ post.readingTimeMinutes }} min</span>
+          <span v-if="post.publishedAt && post.readingTimeMinutes" aria-hidden="true">·</span>
+          <span v-if="post.readingTimeMinutes">{{ post.readingTimeMinutes }} min</span>
         </div>
       </div>
 
-      <span v-if="linkTo" class="publication-arrow" aria-hidden="true">↗</span>
-      <span v-if="linkTo" class="sr-only">{{ copy.posts.readArticle }}</span>
+      <span v-if="post.placeholder" class="publication-placeholder-mark" aria-hidden="true">
+        •••
+      </span>
+      <span v-if="hasLink" class="publication-arrow" aria-hidden="true">↗</span>
+      <span v-if="hasLink" class="sr-only">{{ copy.posts.readArticle }}</span>
     </component>
   </article>
 </template>
@@ -92,9 +137,59 @@ const cardBindings = computed(() => (props.linkTo ? { to: props.linkTo } : {}))
   transform: scaleY(1);
 }
 
+.publication-card--locked {
+  cursor: pointer;
+}
+
+.publication-card--locked:active {
+  animation: locked-publication-shake 0.36s ease-in-out;
+}
+
+.publication-card--placeholder {
+  background: transparent;
+  border-style: dashed;
+}
+
+.publication-card--placeholder::before {
+  display: none;
+}
+
+.publication-card--placeholder:hover {
+  transform: none;
+  border-color: var(--border-strong);
+  box-shadow: none;
+}
+
+.publication-lock {
+  position: absolute;
+  z-index: 3;
+  top: 18px;
+  right: 18px;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  color: var(--signal-text);
+  background: var(--surface);
+  border: 0.5px solid var(--border-strong);
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgb(20 28 23 / 8%);
+}
+
+.publication-lock svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentcolor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
 .publication-link {
   position: relative;
   z-index: 1;
+  box-sizing: border-box;
   min-height: 230px;
   display: grid;
   grid-template-columns: 48px minmax(0, 1fr) 44px;
@@ -102,7 +197,23 @@ const cardBindings = computed(() => (props.linkTo ? { to: props.linkTo } : {}))
   align-items: start;
   padding: 30px 32px;
   color: inherit;
+  background: transparent;
+  border: 0;
+  font: inherit;
+  text-align: left;
   text-decoration: none;
+}
+
+.publication-link--locked {
+  width: 100%;
+  cursor: pointer;
+}
+
+.publication-link--placeholder {
+  background:
+    linear-gradient(color-mix(in srgb, var(--border) 15%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--border) 15%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
 }
 
 .publication-link:focus-visible {
@@ -113,6 +224,10 @@ const cardBindings = computed(() => (props.linkTo ? { to: props.linkTo } : {}))
 
 .publication-link--static {
   grid-template-columns: 48px minmax(0, 1fr);
+}
+
+.publication-link--static.publication-link--placeholder {
+  grid-template-columns: 48px minmax(0, 1fr) 44px;
 }
 
 .publication-index {
@@ -162,6 +277,10 @@ const cardBindings = computed(() => (props.linkTo ? { to: props.linkTo } : {}))
   text-wrap: balance;
 }
 
+.publication-card--placeholder .publication-title {
+  color: var(--text-secondary);
+}
+
 .publication-excerpt {
   max-width: 720px;
   margin: 13px 0 24px;
@@ -198,6 +317,36 @@ const cardBindings = computed(() => (props.linkTo ? { to: props.linkTo } : {}))
     transform 0.25s ease;
 }
 
+.publication-placeholder-mark {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  align-self: center;
+  justify-self: end;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 17px;
+  letter-spacing: 0.16em;
+}
+
+@keyframes locked-publication-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-4px) rotate(-0.2deg);
+  }
+
+  50% {
+    transform: translateX(4px) rotate(0.2deg);
+  }
+
+  75% {
+    transform: translateX(-2px);
+  }
+}
+
 .publication-card:hover .publication-arrow {
   color: var(--surface);
   background: var(--signal);
@@ -230,6 +379,10 @@ const cardBindings = computed(() => (props.linkTo ? { to: props.linkTo } : {}))
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .publication-link--static.publication-link--placeholder {
+    grid-template-columns: minmax(0, 1fr) 36px;
+  }
+
   .publication-index {
     grid-column: 1 / -1;
     padding: 0;
@@ -246,6 +399,11 @@ const cardBindings = computed(() => (props.linkTo ? { to: props.linkTo } : {}))
     width: 34px;
     height: 34px;
     font-size: 15px;
+  }
+
+  .publication-placeholder-mark {
+    grid-column: 2;
+    grid-row: 2;
   }
 
   .publication-meta {
@@ -273,6 +431,10 @@ const cardBindings = computed(() => (props.linkTo ? { to: props.linkTo } : {}))
   .publication-card::before,
   .publication-arrow {
     transition: none;
+  }
+
+  .publication-card--locked:active {
+    animation: none;
   }
 }
 </style>

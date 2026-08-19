@@ -11,18 +11,23 @@ export interface SocialLink {
   download?: string
 }
 
-
-
-export type PostCategory = 'ctf' | 'web-security' | 'privacy' | 'write-up' | 'learning'
+export type PostCategory =
+  | 'ctf'
+  | 'web-security'
+  | 'privacy'
+  | 'writeup'
+  | 'learning'
 
 export interface Post {
   slug: string
   title: string
   excerpt: string
   category: PostCategory
-  publishedAt: string
-  readingTimeMinutes: number
+  publishedAt?: string
+  readingTimeMinutes?: number
   featured?: boolean
+  locked?: boolean
+  placeholder?: boolean
 }
 
 export interface ExperienceEntry {
@@ -59,6 +64,10 @@ export interface Project {
   demoUrl?: string
   status: ProjectStatus
   coverImage?: string
+  coverAlt?: string
+  coverZoom?: boolean
+  detailImage?: string
+  detailImageAlt?: string
+  hasDetails?: boolean
   locked?: boolean
-  placeholder?: boolean
 }

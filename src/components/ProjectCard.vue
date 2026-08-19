@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { RouterLink } from 'vue-router'
 
 import { useLocale } from '@/composables/useLocale'
 import type { Project } from '@/types/content'
@@ -16,15 +17,11 @@ const props = withDefaults(
 
 const { copy } = useLocale()
 const isCompact = computed(() => props.variant === 'compact')
-const statusLabel = computed(() => {
-  if (props.project.placeholder) {
-    return copy.value.projects.placeholderLabel
-  }
-
-  return props.project.status === 'live'
+const statusLabel = computed(() =>
+  props.project.status === 'live'
     ? copy.value.projects.liveLabel
     : copy.value.projects.inProgressLabel
-})
+)
 </script>
 
 <template>
@@ -34,8 +31,7 @@ const statusLabel = computed(() => {
     :class="[
       `project-card--${variant}`,
       {
-        'project-card--locked': project.locked,
-        'project-card--placeholder': project.placeholder
+        'project-card--locked': project.locked
       }
     ]"
     :type="project.locked ? 'button' : undefined"
@@ -55,24 +51,19 @@ const statusLabel = computed(() => {
       <img
         v-if="project.coverImage"
         :src="project.coverImage"
+        :class="{
+          'project-cover-image--zoomed': project.coverZoom
+        }"
         alt=""
         loading="lazy"
         decoding="async"
       />
 
-      <div
-        v-else
-        class="project-cover-fallback"
-        :class="{ 'project-cover-fallback--placeholder': project.placeholder }"
-      >
-        <span v-if="project.placeholder" class="project-placeholder-mark">•••</span>
-
-        <template v-else>
-          <span class="fallback-line fallback-line--one"></span>
-          <span class="fallback-line fallback-line--two"></span>
-          <span class="fallback-line fallback-line--three"></span>
-          <span class="fallback-alert"></span>
-        </template>
+      <div v-else class="project-cover-fallback">
+        <span class="fallback-line fallback-line--one"></span>
+        <span class="fallback-line fallback-line--two"></span>
+        <span class="fallback-line fallback-line--three"></span>
+        <span class="fallback-alert"></span>
       </div>
     </div>
 
@@ -80,7 +71,7 @@ const statusLabel = computed(() => {
       <div class="project-meta">
         <p class="project-tag">{{ project.index }} / {{ project.tag.toUpperCase() }}</p>
         <span
-          v-if="project.status === 'in-progress' && !project.placeholder"
+          v-if="project.status === 'in-progress'"
           class="project-status"
         >
           {{ statusLabel }}
@@ -110,7 +101,25 @@ const statusLabel = computed(() => {
         </span>
       </p>
 
+      <RouterLink
+        v-if="isCompact && project.hasDetails && !project.locked"
+        :to="`/projetos/${project.slug}`"
+        class="project-inline-link"
+      >
+        {{ copy.projects.viewProject }}
+        <span aria-hidden="true">→</span>
+      </RouterLink>
+
       <div v-if="!isCompact" class="project-actions">
+        <RouterLink
+          v-if="project.hasDetails && !project.locked"
+          :to="`/projetos/${project.slug}`"
+          class="action-btn action-btn--demo"
+        >
+          <span aria-hidden="true">↳</span>
+          {{ copy.projects.viewProject }}
+        </RouterLink>
+
         <a
           v-if="project.repoUrl && !project.locked"
           :href="project.repoUrl"
@@ -134,7 +143,10 @@ const statusLabel = computed(() => {
         </a>
 
         <span
-          v-if="project.locked || !project.demoUrl"
+          v-if="
+            project.locked ||
+            (!project.hasDetails && !project.repoUrl && !project.demoUrl)
+          "
           class="action-btn action-btn--disabled"
           aria-disabled="true"
         >
@@ -167,25 +179,6 @@ const statusLabel = computed(() => {
   border-color: var(--border-strong);
   transform: translateY(-2px);
   box-shadow: 0 18px 44px rgb(20 28 23 / 7%);
-}
-
-.project-card--placeholder {
-  background: transparent;
-  border-style: dashed;
-}
-
-.project-card--placeholder:hover {
-  transform: none;
-  border-color: var(--border-strong);
-  box-shadow: none;
-}
-
-.project-card--placeholder .project-title {
-  color: var(--text-secondary);
-}
-
-.project-card--placeholder .project-cover {
-  background: transparent;
 }
 
 .project-card--locked {
@@ -251,6 +244,12 @@ const statusLabel = computed(() => {
   object-fit: cover;
 }
 
+.project-cover-image--zoomed {
+  object-position: 54% 48%;
+  transform: scale(1.36);
+  transform-origin: 56% 48%;
+}
+
 .project-card--featured .project-cover img {
   object-position: center;
 }
@@ -266,24 +265,6 @@ const statusLabel = computed(() => {
     linear-gradient(90deg, rgb(255 255 255 / 3%) 1px, transparent 1px),
     #111820;
   background-size: 18px 18px;
-}
-
-.project-cover-fallback--placeholder {
-  display: grid;
-  place-items: center;
-  background:
-    linear-gradient(color-mix(in srgb, var(--border) 20%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--border) 20%, transparent) 1px, transparent 1px),
-    transparent;
-  background-size: 18px 18px;
-  border-right: 0.5px dashed var(--border);
-}
-
-.project-placeholder-mark {
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 18px;
-  letter-spacing: 0.18em;
 }
 
 .fallback-line {
@@ -407,6 +388,32 @@ const statusLabel = computed(() => {
   color: var(--text-muted);
   font-size: 11px;
   line-height: 1.45;
+}
+
+.project-inline-link {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 10px;
+  color: var(--signal-text);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.project-inline-link span {
+  transition: transform 0.15s ease;
+}
+
+.project-inline-link:hover span {
+  transform: translateX(3px);
+}
+
+.project-inline-link:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 4px;
+  border-radius: 3px;
 }
 
 .project-topics {
@@ -550,7 +557,8 @@ a.action-btn:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .project-card {
+  .project-card,
+  .project-inline-link span {
     transition: none;
   }
 
