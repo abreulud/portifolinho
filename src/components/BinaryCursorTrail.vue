@@ -14,6 +14,10 @@ function getTrailColor() {
   return styles.getPropertyValue('--text-muted').trim() || '#777a74'
 }
 
+function getTrailOpacity() {
+  return document.documentElement.dataset.theme === 'dark' ? 0.62 : 0.86
+}
+
 function createOptions(): ISourceOptions {
   return {
     detectRetina: true,
@@ -44,7 +48,7 @@ function createOptions(): ISourceOptions {
       opacity: {
         value: {
           min: 0.1,
-          max: 0.86
+          max: getTrailOpacity()
         },
         animation: {
           destroy: 'min',
