@@ -10,7 +10,7 @@ const { copy } = useLocale()
       <div class="ring ring--outer">
         <div class="ring ring--core">
           <img
-            src="/foto-perfil.png"
+            src="/foto-perfil.webp"
             :alt="copy.accessibility.profilePhoto"
             class="profile-photo"
             width="310"

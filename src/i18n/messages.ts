@@ -291,7 +291,7 @@ export const messages: Record<Locale, SiteMessages> = {
           repoUrl: 'https://github.com/abreulud/guitar_desktop',
           demoUrl: 'https://abreulud.github.io/guitar_desktop/',
           status: 'live',
-          coverImage: '/project-media/guitar-desktop/desktop.png',
+          coverImage: '/project-media/guitar-desktop/desktop.webp',
           coverAlt: 'Guitar Desktop com webcam, player, anotações, arquivos e cifras abertas.',
           hasDetails: true
         }
@@ -490,7 +490,7 @@ export const messages: Record<Locale, SiteMessages> = {
           repoUrl: 'https://github.com/abreulud/guitar_desktop',
           demoUrl: 'https://abreulud.github.io/guitar_desktop/',
           status: 'live',
-          coverImage: '/project-media/guitar-desktop/desktop.png',
+          coverImage: '/project-media/guitar-desktop/desktop.webp',
           coverAlt: 'Guitar Desktop with webcam, player, notes, files and guitar tabs open.',
           hasDetails: true
         }
