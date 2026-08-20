@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
+import BinaryCursorTrail from '@/components/BinaryCursorTrail.vue'
 import HeroSection from '@/components/HeroSection.vue'
 import ProjectShowcase from '@/components/ProjectShowcase.vue'
 import PublicationList from '@/components/PublicationList.vue'
@@ -14,6 +15,7 @@ const homePublications = computed(() => copy.value.posts.items.slice(0, 2))
 
 <template>
   <main>
+    <BinaryCursorTrail />
     <HeroSection />
     <ScrollHint />
 

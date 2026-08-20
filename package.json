@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@iconoir/vue": "^7.12.1",
+    "@tsparticles/basic": "^4.3.2",
+    "@tsparticles/engine": "^4.3.2",
+    "@tsparticles/shape-text": "^4.3.2",
     "markdown-it": "^15.0.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"

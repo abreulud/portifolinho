@@ -22,6 +22,10 @@
   padding: 0;
 }
 
+#app {
+  isolation: isolate;
+}
+
 body {
   background: var(--canvas);
   color: var(--ink);
