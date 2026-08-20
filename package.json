@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@iconoir/vue": "^7.12.1",
     "markdown-it": "^15.0.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"

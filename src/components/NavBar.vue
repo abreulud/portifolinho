@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { HalfMoon, SunLight } from '@iconoir/vue'
 import { useRoute } from 'vue-router'
 
 import { useLocale } from '@/composables/useLocale'
@@ -60,7 +61,12 @@ const { theme, toggleTheme } = useTheme()
         "
         @click="toggleTheme"
       >
-        {{ theme === 'dark' ? '𖤓' : '⏾' }}
+        <SunLight
+          v-if="theme === 'dark'"
+          class="theme-icon"
+          aria-hidden="true"
+        />
+        <HalfMoon v-else class="theme-icon" aria-hidden="true" />
       </button>
     </nav>
   </div>
@@ -152,11 +158,16 @@ const { theme, toggleTheme } = useTheme()
   width: 32px;
   height: 32px;
   color: var(--text-muted);
-  font-size: 14px;
   cursor: pointer;
   background: var(--surface);
   border: 0.5px solid var(--border-strong);
   border-radius: 50%;
+}
+
+.theme-icon {
+  width: 16px;
+  height: 16px;
+  stroke-width: 1.7;
 }
 
 @media (max-width: 720px) {
