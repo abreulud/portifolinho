@@ -31,7 +31,10 @@ function toggleEntry(slug: string) {
       />
     </div>
 
-    <ExperienceToolbox :columns="copy.experience.toolbox" :label="copy.experience.toolboxLabel" />
+    <ExperienceToolbox
+      :columns="copy.experience.toolbox"
+      :label="copy.experience.toolboxLabel"
+    />
   </div>
 </template>
 

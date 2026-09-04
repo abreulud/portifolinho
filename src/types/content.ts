@@ -6,7 +6,7 @@ export interface ProfileStat {
 export interface SocialLink {
   label: string
   href: string
-  glyph: string
+  glyph?: string
   brand?: 'github' | 'linkedin'
   primary?: boolean
   download?: string

@@ -82,7 +82,6 @@ function toggle() {
   cursor: pointer;
   font-family: inherit;
   text-align: left;
-  transition: transform 160ms ease;
 }
 
 .entry-head:focus-visible {
@@ -197,12 +196,6 @@ function toggle() {
   white-space: nowrap;
 }
 
-@media (hover: hover) {
-  .entry-head:hover {
-    transform: translateY(-2px);
-  }
-}
-
 @media (max-width: 900px) {
   .entry-head {
     gap: 20px;
@@ -234,7 +227,6 @@ function toggle() {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .entry-head,
   .entry-sign,
   .entry-body {
     transition: none;

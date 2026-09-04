@@ -32,17 +32,13 @@ markdown.renderer.rules.link_open = (
   return renderer.renderToken(tokens, index, options)
 }
 
-export function renderMarkdown(source: string): string {
-  return markdown.render(source)
-}
-
-export interface MarkdownHeading {
+interface MarkdownHeading {
   id: string
   label: string
   description: string
 }
 
-export interface MarkdownDocument {
+interface MarkdownDocument {
   html: string
   headings: MarkdownHeading[]
 }

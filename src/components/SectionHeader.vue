@@ -6,13 +6,10 @@ defineProps<{
 </script>
 
 <template>
-  <div class="section-header">
-    <div>
-      <p class="eyebrow">{{ eyebrow }}</p>
-      <h2 class="section-title">{{ title }}</h2>
-    </div>
-
-  </div>
+  <header class="section-header">
+    <p class="eyebrow">{{ eyebrow }}</p>
+    <h2 class="section-title">{{ title }}</h2>
+  </header>
 </template>
 
 <style scoped>
@@ -33,5 +30,4 @@ defineProps<{
   font-size: 30px;
   font-weight: 400;
 }
-
 </style>

@@ -73,11 +73,6 @@ export interface SiteMessages {
     viewAllProjects: string
     items: Project[]
   }
-  footer: {
-    createdBy: string
-    location: string
-    availability: string
-  }
 }
 
 export const availableLocales: Locale[] = ['pt', 'en']
@@ -141,13 +136,11 @@ export const messages: Record<Locale, SiteMessages> = {
         {
           label: 'LinkedIn',
           href: 'https://linkedin.com/in/ludmilla-abreu',
-          glyph: '↗',
           brand: 'linkedin'
         },
         {
           label: 'GitHub',
           href: 'https://github.com/abreulud',
-          glyph: '⌘',
           brand: 'github'
         }
       ]
@@ -300,11 +293,6 @@ export const messages: Record<Locale, SiteMessages> = {
           hasDetails: true
         }
       ]
-    },
-    footer: {
-      createdBy: 'Criado por Ludmilla A.',
-      location: 'Salvador, BR',
-      availability: 'disponível para novos projetos'
     }
   },
   en: {
@@ -346,13 +334,11 @@ export const messages: Record<Locale, SiteMessages> = {
         {
           label: 'LinkedIn',
           href: 'https://linkedin.com/in/ludmilla-abreu',
-          glyph: '↗',
           brand: 'linkedin'
         },
         {
           label: 'GitHub',
           href: 'https://github.com/abreulud',
-          glyph: '⌘',
           brand: 'github'
         }
       ]
@@ -505,11 +491,6 @@ export const messages: Record<Locale, SiteMessages> = {
           hasDetails: true
         }
       ]
-    },
-    footer: {
-      createdBy: 'Created by Ludmilla A.',
-      location: 'Salvador, Brazil',
-      availability: 'available for new projects'
     }
   }
 }

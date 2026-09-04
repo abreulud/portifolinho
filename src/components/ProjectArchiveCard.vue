@@ -170,10 +170,7 @@ const statusLabel = computed(() =>
   box-shadow: 0 18px 44px rgb(20 28 23 / 7%);
 }
 
-.archive-card--locked {
-  cursor: pointer;
-}
-
+.archive-card--locked,
 .archive-card--linked {
   cursor: pointer;
 }

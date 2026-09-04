@@ -174,10 +174,7 @@ const statusLabel = computed(() =>
   box-shadow: 0 18px 44px rgb(20 28 23 / 7%);
 }
 
-.project-card--locked {
-  cursor: pointer;
-}
-
+.project-card--locked,
 .project-card--linked {
   cursor: pointer;
 }
