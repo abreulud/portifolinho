@@ -7,6 +7,7 @@ export interface SocialLink {
   label: string
   href: string
   glyph: string
+  brand?: 'github' | 'linkedin'
   primary?: boolean
   download?: string
 }
@@ -26,6 +27,7 @@ export interface Post {
   publishedAt?: string
   readingTimeMinutes?: number
   featured?: boolean
+  hasDetails?: boolean
   locked?: boolean
   placeholder?: boolean
 }

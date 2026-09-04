@@ -33,6 +33,24 @@ body {
   transition: background-color 0.3s ease, color 0.2s ease;
 }
 
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+}
+
+.theme-transitioning body {
+  transition: none;
+}
+
 a {
   color: inherit;
 }

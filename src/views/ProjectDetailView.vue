@@ -2,10 +2,11 @@
 import { computed, onBeforeUnmount, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 
+import PreviewRail from '@/components/PreviewRail.vue'
 import { getProjectContent } from '@/content/projects'
 import { useLocale } from '@/composables/useLocale'
 import { formatShortDate } from '@/utils/formatDate'
-import { renderMarkdown } from '@/utils/renderMarkdown'
+import { renderMarkdownDocument } from '@/utils/renderMarkdown'
 
 const route = useRoute()
 const { locale, copy } = useLocale()
@@ -23,9 +24,10 @@ const project = computed(() =>
 )
 
 const content = computed(() => getProjectContent(slug.value, locale.value))
-const renderedContent = computed(() =>
-  content.value ? renderMarkdown(content.value) : ''
+const markdownDocument = computed(() =>
+  content.value ? renderMarkdownDocument(content.value) : null
 )
+const renderedContent = computed(() => markdownDocument.value?.html ?? '')
 const detailImage = computed(
   () => project.value?.detailImage ?? project.value?.coverImage
 )
@@ -40,6 +42,9 @@ const statusLabel = computed(() =>
   project.value?.status === 'live'
     ? copy.value.projects.liveLabel
     : copy.value.projects.inProgressLabel
+)
+const railItems = computed(() =>
+  markdownDocument.value?.headings ?? []
 )
 
 watch(
@@ -60,6 +65,11 @@ onBeforeUnmount(() => {
 <template>
   <main class="project-detail-page">
     <template v-if="project && renderedContent">
+      <PreviewRail
+        :items="railItems"
+        :label="`${project.title}: ${copy.projects.sectionTitle}`"
+      />
+
       <RouterLink to="/projetos" class="back-link">
         <span aria-hidden="true">←</span>
         {{ copy.projects.backToProjects }}
@@ -268,6 +278,7 @@ onBeforeUnmount(() => {
 }
 
 .project-markdown :deep(h2) {
+  scroll-margin-top: 32px;
   margin: 54px 0 16px;
   color: var(--ink);
   font-family: var(--font-mono);

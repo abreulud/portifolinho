@@ -23,7 +23,6 @@ const orderedProjects = computed(() =>
           :text="copy.projects.pageTitle"
         />
       </div>
-      <p class="projects-intro">{{ copy.projects.pageIntro }}</p>
     </header>
 
     <section class="projects-archive" :aria-label="copy.projects.sectionTitle">
@@ -60,13 +59,6 @@ const orderedProjects = computed(() =>
   margin-bottom: 22px;
 }
 
-.projects-intro {
-  max-width: 700px;
-  color: var(--text-secondary);
-  font-size: 16px;
-  line-height: 1.7;
-}
-
 .projects-archive {
   display: grid;
   gap: 20px;
@@ -79,10 +71,6 @@ const orderedProjects = computed(() =>
 
   .projects-header {
     margin-bottom: 30px;
-  }
-
-  .projects-intro {
-    font-size: 14px;
   }
 }
 </style>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { PhArrowRight } from '@phosphor-icons/vue'
 import { computed } from 'vue'
 
 import BinaryCursorTrail from '@/components/BinaryCursorTrail.vue'
@@ -23,15 +24,13 @@ const homePublications = computed(() => copy.value.posts.items.slice(0, 2))
       <SectionHeader
         :eyebrow="copy.projects.eyebrow"
         :title="copy.projects.sectionTitle"
-        :see-all-label="copy.projects.viewAllProjects"
-        see-all-to="/projetos"
       />
 
       <ProjectShowcase :projects="copy.projects.items" />
 
       <router-link to="/projetos" class="projects-see-all">
         {{ copy.projects.viewAllProjects }}
-        <span aria-hidden="true">→</span>
+        <PhArrowRight :size="14" aria-hidden="true" />
       </router-link>
     </section>
 
@@ -39,15 +38,13 @@ const homePublications = computed(() => copy.value.posts.items.slice(0, 2))
       <SectionHeader
         :eyebrow="copy.posts.eyebrow"
         :title="copy.posts.sectionTitle"
-        :see-all-label="copy.posts.viewAllPosts"
-        see-all-to="/blog"
       />
 
       <PublicationList :posts="homePublications" archive-link="/blog" />
 
       <router-link to="/blog" class="publications-see-all">
         {{ copy.posts.viewAllPosts }}
-        <span aria-hidden="true">→</span>
+        <PhArrowRight :size="14" aria-hidden="true" />
       </router-link>
     </section>
   </main>

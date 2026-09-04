@@ -38,18 +38,17 @@ export interface SiteMessages {
     readArticle: string
     viewAllPosts: string
     archiveTitle: string
-    archiveIntro: string
     inProgressLabel: string
     placeholderLabel: string
     comingSoon: string
+    backToBlog: string
+    notFoundTitle: string
+    notFoundText: string
     items: Post[]
   }
   experience: {
     eyebrow: string
     pageTitle: string
-    intro: string
-    positionsLabel: string
-    ongoingLabel: string
     toolboxLabel: string
     entries: ExperienceEntry[]
     toolbox: ToolboxColumn[]
@@ -59,7 +58,6 @@ export interface SiteMessages {
     sectionTitle: string
     pageEyebrow: string
     pageTitle: string
-    pageIntro: string
     newLabel: string
     liveLabel: string
     inProgressLabel: string
@@ -140,8 +138,18 @@ export const messages: Record<Locale, SiteMessages> = {
           primary: true,
           download: 'CV - Ludmilla Abreu (Tecnologia).pdf'
         },
-        { label: 'linkedin', href: 'https://linkedin.com/in/ludmilla-abreu', glyph: '↗' },
-        { label: 'github', href: 'https://github.com/abreulud', glyph: '⌘' }
+        {
+          label: 'LinkedIn',
+          href: 'https://linkedin.com/in/ludmilla-abreu',
+          glyph: '↗',
+          brand: 'linkedin'
+        },
+        {
+          label: 'GitHub',
+          href: 'https://github.com/abreulud',
+          glyph: '⌘',
+          brand: 'github'
+        }
       ]
     },
     posts: {
@@ -151,11 +159,12 @@ export const messages: Record<Locale, SiteMessages> = {
       readArticle: 'ler artigo',
       viewAllPosts: 'ver todas as publicações',
       archiveTitle: 'Minhas publicações',
-      archiveIntro:
-        'Pesquisas, artigos e write-ups sobre segurança e desenvolvimento.',
       inProgressLabel: 'em andamento',
       placeholderLabel: 'em breve',
       comingSoon: 'Em breve',
+      backToBlog: 'voltar ao blog',
+      notFoundTitle: 'Publicação não encontrada',
+      notFoundText: 'Esta publicação não existe ou ainda não possui uma página publicada.',
       items: [
         {
           slug: 'oceansec-osint',
@@ -163,6 +172,7 @@ export const messages: Record<Locale, SiteMessages> = {
           excerpt:
             'Uma análise OSINT de uma empresa fictícia de serviços de cibersegurança, com o mapeamento de documentos sensíveis, repositórios, ativos e sistemas internos da organização.',
           category: 'writeup',
+          hasDetails: true,
           locked: true
         },
         {
@@ -177,10 +187,6 @@ export const messages: Record<Locale, SiteMessages> = {
     experience: {
       eyebrow: '~/experiência',
       pageTitle: 'Experiência',
-      intro:
-        'Experiências em tecnologia, pesquisa e segurança organizadas como um log: o que fiz, o que aprendi e o impacto gerado.',
-      positionsLabel: 'posições',
-      ongoingLabel: 'em constante aprendizado',
       toolboxLabel: 'tecnologias & ferramentas',
       entries: [
         {
@@ -231,8 +237,6 @@ export const messages: Record<Locale, SiteMessages> = {
       sectionTitle: 'Meus projetos',
       pageEyebrow: '~/projetos',
       pageTitle: 'Minhas construções',
-      pageIntro:
-        'Projetos acadêmicos e experiências digitais documentados do problema às decisões de implementação.',
       newLabel: 'Novo!',
       liveLabel: 'disponível',
       inProgressLabel: 'em andamento',
@@ -339,8 +343,18 @@ export const messages: Record<Locale, SiteMessages> = {
           primary: true,
           download: 'CV - Ludmilla Abreu (Tecnologia).pdf'
         },
-        { label: 'linkedin', href: 'https://linkedin.com/in/ludmilla-abreu', glyph: '↗' },
-        { label: 'github', href: 'https://github.com/abreulud', glyph: '⌘' }
+        {
+          label: 'LinkedIn',
+          href: 'https://linkedin.com/in/ludmilla-abreu',
+          glyph: '↗',
+          brand: 'linkedin'
+        },
+        {
+          label: 'GitHub',
+          href: 'https://github.com/abreulud',
+          glyph: '⌘',
+          brand: 'github'
+        }
       ]
     },
     posts: {
@@ -350,11 +364,12 @@ export const messages: Record<Locale, SiteMessages> = {
       readArticle: 'read article',
       viewAllPosts: 'view all posts',
       archiveTitle: 'All posts',
-      archiveIntro:
-        'Technical notes, research and write-ups on security, development and continuous learning.',
       inProgressLabel: 'in progress',
       placeholderLabel: 'coming soon',
       comingSoon: 'Coming soon',
+      backToBlog: 'back to blog',
+      notFoundTitle: 'Post not found',
+      notFoundText: 'This post does not exist or does not have a published page yet.',
       items: [
         {
           slug: 'oceansec-osint',
@@ -362,6 +377,7 @@ export const messages: Record<Locale, SiteMessages> = {
           excerpt:
             'An OSINT analysis of a fictional cybersecurity services company, mapping sensitive documents, repositories, assets and internal systems.',
           category: 'writeup',
+          hasDetails: true,
           locked: true
         },
         {
@@ -376,10 +392,6 @@ export const messages: Record<Locale, SiteMessages> = {
     experience: {
       eyebrow: '~/experience',
       pageTitle: 'Experience',
-      intro:
-        'Experience in technology, research and security organized as a log: what I did, what I learned and the impact it had.',
-      positionsLabel: 'positions',
-      ongoingLabel: 'always learning',
       toolboxLabel: 'technologies & tools',
       entries: [
         {
@@ -430,8 +442,6 @@ export const messages: Record<Locale, SiteMessages> = {
       sectionTitle: 'My projects',
       pageEyebrow: '~/projects',
       pageTitle: 'My Builds',
-      pageIntro:
-        'Academic projects and digital experiences documented from the problem to implementation decisions.',
       newLabel: 'New!',
       liveLabel: 'available',
       inProgressLabel: 'in progress',

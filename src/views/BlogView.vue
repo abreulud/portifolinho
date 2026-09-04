@@ -10,7 +10,6 @@ const { copy } = useLocale()
     <header class="publications-header">
       <p class="publications-eyebrow">{{ copy.posts.eyebrow }}</p>
       <h1>{{ copy.posts.archiveTitle }}</h1>
-      <p>{{ copy.posts.archiveIntro }}</p>
     </header>
 
     <PublicationList :posts="copy.posts.items" />
@@ -41,12 +40,6 @@ const { copy } = useLocale()
   font-size: clamp(30px, 4vw, 46px);
   font-weight: 400;
   line-height: 1.15;
-}
-
-.publications-header > p:last-child {
-  color: var(--text-muted);
-  font-size: 15px;
-  line-height: 1.7;
 }
 
 @media (max-width: 640px) {

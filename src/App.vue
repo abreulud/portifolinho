@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import NavBar from '@/components/NavBar.vue'
-import SiteFooter from '@/components/SiteFooter.vue'
 </script>
 
 <template>
@@ -8,7 +7,6 @@ import SiteFooter from '@/components/SiteFooter.vue'
     <div class="page">
       <NavBar />
       <router-view />
-      <SiteFooter />
     </div>
   </div>
 </template>

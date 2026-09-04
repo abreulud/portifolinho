@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { PhArrowUpRight, PhGithubLogo } from '@phosphor-icons/vue'
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 
@@ -31,7 +32,8 @@ const statusLabel = computed(() =>
     :class="[
       `project-card--${variant}`,
       {
-        'project-card--locked': project.locked
+        'project-card--locked': project.locked,
+        'project-card--linked': project.hasDetails && !project.locked
       }
     ]"
     :type="project.locked ? 'button' : undefined"
@@ -105,9 +107,10 @@ const statusLabel = computed(() =>
         v-if="isCompact && project.hasDetails && !project.locked"
         :to="`/projetos/${project.slug}`"
         class="project-inline-link"
+        :aria-label="`${copy.projects.viewProject}: ${project.title}`"
       >
         {{ copy.projects.viewProject }}
-        <span aria-hidden="true">→</span>
+        <PhArrowUpRight :size="12" aria-hidden="true" />
       </RouterLink>
 
       <div v-if="!isCompact" class="project-actions">
@@ -115,9 +118,10 @@ const statusLabel = computed(() =>
           v-if="project.hasDetails && !project.locked"
           :to="`/projetos/${project.slug}`"
           class="action-btn action-btn--demo"
+          :aria-label="`${copy.projects.viewProject}: ${project.title}`"
         >
-          <span aria-hidden="true">↳</span>
           {{ copy.projects.viewProject }}
+          <PhArrowUpRight :size="12" aria-hidden="true" />
         </RouterLink>
 
         <a
@@ -125,9 +129,9 @@ const statusLabel = computed(() =>
           :href="project.repoUrl"
           target="_blank"
           rel="noopener noreferrer"
-          class="action-btn"
+          class="action-btn action-btn--external"
         >
-          <span aria-hidden="true">⌘</span>
+          <PhGithubLogo :size="13" aria-hidden="true" />
           {{ copy.projects.sourceCode }}
         </a>
 
@@ -171,6 +175,10 @@ const statusLabel = computed(() =>
 }
 
 .project-card--locked {
+  cursor: pointer;
+}
+
+.project-card--linked {
   cursor: pointer;
 }
 
@@ -391,11 +399,18 @@ const statusLabel = computed(() =>
   text-decoration: none;
 }
 
-.project-inline-link span {
+.project-inline-link::after,
+.action-btn--demo::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+}
+
+.project-inline-link svg {
   transition: transform 0.15s ease;
 }
 
-.project-inline-link:hover span {
+.project-inline-link:hover svg {
   transform: translateX(3px);
 }
 
@@ -446,6 +461,11 @@ const statusLabel = computed(() =>
   font-size: 10px;
   text-decoration: none;
   transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.action-btn--external {
+  position: relative;
+  z-index: 1;
 }
 
 a.action-btn:hover {
@@ -547,7 +567,7 @@ a.action-btn:hover {
 
 @media (prefers-reduced-motion: reduce) {
   .project-card,
-  .project-inline-link span {
+  .project-inline-link svg {
     transition: none;
   }
 

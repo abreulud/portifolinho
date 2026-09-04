@@ -30,7 +30,8 @@ const statusLabel = computed(() =>
     class="archive-card"
     :class="{
       'archive-card--featured': featured,
-      'archive-card--locked': project.locked
+      'archive-card--locked': project.locked,
+      'archive-card--linked': project.hasDetails && !project.locked
     }"
     :type="project.locked ? 'button' : undefined"
     :aria-label="
@@ -109,7 +110,7 @@ const statusLabel = computed(() =>
             :href="project.repoUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="archive-action"
+            class="archive-action archive-action--external"
           >
             {{ copy.projects.sourceCode }}
             <span aria-hidden="true">↗</span>
@@ -119,6 +120,7 @@ const statusLabel = computed(() =>
             v-if="project.hasDetails && !project.locked"
             :to="`/projetos/${project.slug}`"
             class="archive-action archive-action--primary"
+            :aria-label="`${copy.projects.viewProject}: ${project.title}`"
           >
             {{ copy.projects.viewProject }}
             <span aria-hidden="true">→</span>
@@ -169,6 +171,10 @@ const statusLabel = computed(() =>
 }
 
 .archive-card--locked {
+  cursor: pointer;
+}
+
+.archive-card--linked {
   cursor: pointer;
 }
 
@@ -417,6 +423,17 @@ const statusLabel = computed(() =>
 .archive-action:hover {
   color: var(--signal-text);
   border-color: var(--signal);
+}
+
+.archive-action--primary::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+}
+
+.archive-action--external {
+  position: relative;
+  z-index: 1;
 }
 
 .archive-action:focus-visible {

@@ -1,5 +1,11 @@
+<script setup lang="ts">
+import { PhCaretDown } from '@phosphor-icons/vue'
+</script>
+
 <template>
-  <div class="scroll-hint" aria-hidden="true">⌄</div>
+  <div class="scroll-hint" aria-hidden="true">
+    <PhCaretDown :size="20" />
+  </div>
 </template>
 
 <style scoped>
@@ -8,7 +14,6 @@
   justify-content: center;
   margin-bottom: 56px;
   color: var(--text-muted);
-  font-size: 18px;
   animation: bob 2s ease-in-out infinite;
 }
 

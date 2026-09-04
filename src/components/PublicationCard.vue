@@ -14,7 +14,15 @@ const props = defineProps<{
 
 const { locale, copy } = useLocale()
 const hasLink = computed(
-  () => Boolean(props.linkTo && !props.post.locked && !props.post.placeholder)
+  () =>
+    Boolean(
+      (props.linkTo || props.post.hasDetails) &&
+      !props.post.locked &&
+      !props.post.placeholder
+    )
+)
+const linkTarget = computed(
+  () => props.linkTo ?? `/blog/${props.post.slug}`
 )
 const cardComponent = computed(() => {
   if (props.post.locked) return 'button'
@@ -28,7 +36,7 @@ const cardBindings = computed(() => {
     }
   }
 
-  return hasLink.value ? { to: props.linkTo } : {}
+  return hasLink.value ? { to: linkTarget.value } : {}
 })
 </script>
 

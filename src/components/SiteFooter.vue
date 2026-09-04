@@ -21,7 +21,6 @@ const { copy } = useLocale()
 .site-footer {
   margin-top: 80px;
   padding-top: 24px;
-  border-top: 0.5px solid var(--border);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

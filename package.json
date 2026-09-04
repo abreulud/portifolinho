@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@iconoir/vue": "^7.12.1",
+    "@phosphor-icons/vue": "^2.2.1",
     "@tsparticles/basic": "^4.3.2",
     "@tsparticles/engine": "^4.3.2",
     "@tsparticles/shape-text": "^4.3.2",

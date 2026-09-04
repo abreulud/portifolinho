@@ -1,18 +1,23 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { PhCaretDown } from '@phosphor-icons/vue'
+import { computed } from 'vue'
 
 import type { ExperienceEntry } from '@/types/content'
 
 const props = defineProps<{
   entry: ExperienceEntry
+  isOpen: boolean
 }>()
 
-const isOpen = ref(false)
+const emit = defineEmits<{
+  toggle: []
+}>()
+
 const buttonId = computed(() => 'experience-trigger-' + props.entry.slug)
 const panelId = computed(() => 'experience-panel-' + props.entry.slug)
 
 function toggle() {
-  isOpen.value = !isOpen.value
+  emit('toggle')
 }
 </script>
 
@@ -26,14 +31,17 @@ function toggle() {
       :aria-controls="panelId"
       @click="toggle"
     >
-      <span class="entry-period">{{ entry.period }}</span>
-
       <span class="entry-heading">
         <span class="entry-role">{{ entry.role }}</span>
+        <span class="entry-period">{{ entry.period }}</span>
         <span class="entry-company">{{ entry.company }}</span>
       </span>
 
-      <span class="entry-sign" aria-hidden="true">⌄</span>
+      <PhCaretDown
+        :size="16"
+        class="entry-sign"
+        aria-hidden="true"
+      />
     </button>
 
     <div
@@ -60,21 +68,13 @@ function toggle() {
 </template>
 
 <style scoped>
-.entry {
-  border-top: 0.5px solid var(--border);
-}
-
-.entry:last-child {
-  border-bottom: 0.5px solid var(--border);
-}
-
 .entry-head {
   display: grid;
-  grid-template-columns: 210px minmax(0, 1fr) 36px;
+  grid-template-columns: minmax(0, 1fr) 32px;
   gap: 24px;
-  align-items: center;
+  align-items: start;
   width: 100%;
-  padding: 22px 4px;
+  padding: 20px 4px 22px 0;
   color: inherit;
   background: transparent;
   border: 0;
@@ -91,9 +91,9 @@ function toggle() {
 }
 
 .entry-period {
-  color: var(--signal-text);
+  color: var(--text-muted);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1.5;
 }
 
@@ -117,10 +117,9 @@ function toggle() {
 }
 
 .entry-sign {
+  margin-top: 4px;
   justify-self: end;
   color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 16px;
   transition:
     color 160ms ease,
     transform 160ms ease;
@@ -159,7 +158,7 @@ function toggle() {
   align-items: flex-start;
   flex-direction: column;
   gap: 16px;
-  padding: 0 44px 28px 238px;
+  padding: 0 44px 30px 0;
 }
 
 .entry-description {
@@ -206,24 +205,15 @@ function toggle() {
 
 @media (max-width: 900px) {
   .entry-head {
-    grid-template-columns: 170px minmax(0, 1fr) 32px;
     gap: 20px;
-  }
-
-  .entry-body-inner {
-    padding-left: 190px;
   }
 }
 
 @media (max-width: 640px) {
   .entry-head {
     grid-template-columns: minmax(0, 1fr) 32px;
-    gap: 10px 16px;
-    padding: 20px 4px;
-  }
-
-  .entry-period {
-    grid-column: 1 / -1;
+    gap: 16px;
+    padding: 18px 0 20px;
   }
 
   .entry-heading {
@@ -239,7 +229,7 @@ function toggle() {
   }
 
   .entry-body-inner {
-    padding: 0 4px 24px;
+    padding: 0 0 26px;
   }
 }
 
